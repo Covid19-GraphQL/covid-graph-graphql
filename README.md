@@ -1,4 +1,4 @@
 # covid-graph-graphql
-A GraphQL API for the CovidGraph project.
+A Neo4j-GraphQL API for the CovidGraph project.
 
 See: https://covidgraph.github.io/
