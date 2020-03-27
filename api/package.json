@@ -1,0 +1,48 @@
+{
+  "name": "covid-graph-graphql",
+  "version": "0.0.1",
+  "description": "A GraphQL API for the CovidGraph project",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start-dev": "./node_modules/.bin/nodemon --watch src --ext js,graphql --exec babel-node  src/index.js",
+    "build": "babel src -d build && shx cp src/schema.graphql build",
+    "now-build": "babel src -d build && shx cp src/schema.graphql build",
+    "start": "npm run build && node build/index.js"
+  },
+  "author": "Michael Graham",
+  "license": "MIT",
+  "dependencies": {
+    "apollo-boost": "^0.3.1",
+    "apollo-cache-inmemory": "^1.6.3",
+    "apollo-client": "^2.6.4",
+    "apollo-link-http": "^1.5.15",
+    "apollo-server": "^2.8.2",
+    "apollo-server-express": "^2.11.0",
+    "dotenv": "^7.0.0",
+    "express": "^4.17.1",
+    "graphql-tag": "^2.10.1",
+    "neo4j-driver": "^4.0.2",
+    "neo4j-graphql-js": "^2.13.0",
+    "node-fetch": "^2.6.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "husky": "^1.3.1",
+    "lint-staged": "^8.2.1",
+    "nodemon": "^1.19.1",
+    "shx": "^0.3.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,json,css,md,graphql": [
+      "prettier --write",
+      "git add"
+    ]
+  }
+}

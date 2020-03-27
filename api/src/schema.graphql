@@ -1,0 +1,80 @@
+type Country {
+  name: String!
+  un_id: String
+  provinces(first: Int, offset: Int): [ProvinceOfCountry]
+  totalReports(first: Int, offset: Int): TotalReports
+  totalMaleReports(first: Int, offset: Int): TotalMaleReports
+  totalFemaleReports(first: Int, offset: Int): TotalFemaleReports
+}
+
+type Province {
+  name: String!
+  latitude: String
+  longitude: String
+  dailyReports(first: Int, offset: Int): [ProvinceDailyReport]
+  latestReports(first: Int, offset: Int): [ProvinceLatestReport]
+  country(first: Int, offset: Int): [ProvinceOfCountry]
+}
+
+type ProvinceOfCountry @relation(name: "PART_OF") {
+  from: Province
+  source: String!
+  to: Country
+}
+
+type ProvinceDailyReport @relation(name: "REPORTED") {
+  from: Province
+  source: String!
+  to: DailyReport
+}
+
+type ProvinceLatestReport @relation(name: "REPORTED") {
+  from: Province
+  source: String!
+  to: Latest
+}
+
+type DailyReport {
+  uuid: String!
+  confirmed: String!
+  date: LocalDateTime!
+  death: String!
+  recovered: String!
+  provinces: [ProvinceDailyReport]
+}
+
+type Latest {
+  uuid: String!
+  confirmed: String!
+  date: LocalDateTime!
+  death: String!
+  recovered: String!
+  provinces: [ProvinceLatestReport]
+}
+
+type TotalReports @relation(name: "CURRENT_TOTAL") {
+  from: Country
+  count: Int!
+  to: AgeGroup
+}
+
+type TotalFemaleReports @relation(name: "CURRENT_FEMALE") {
+  from: Country
+  count: Int!
+  to: AgeGroup
+}
+
+type TotalMaleReports @relation(name: "CURRENT_MALE") {
+  from: Country
+  count: Int!
+  to: AgeGroup
+}
+
+type AgeGroup {
+  group: String!
+  span: String!
+  start: Int!
+  totalReports(first: Int, offset: Int): TotalReports
+  totalMaleReports(first: Int, offset: Int): TotalMaleReports
+  totalFemaleReports(first: Int, offset: Int): TotalFemaleReports
+}
