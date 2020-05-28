@@ -78,3 +78,274 @@ type AgeGroup {
   totalMaleReports(first: Int, offset: Int): TotalMaleReports
   totalFemaleReports(first: Int, offset: Int): TotalFemaleReports
 }
+
+
+type AbstractCollection {
+     id: String
+}
+
+type Abstract {
+     _hash_id: String
+     section: String
+     text: String
+}
+
+type Affiliation {
+     _hash_id: String
+     institution: String
+     laboratory: String
+}
+
+type AgeGroup {
+     group: String
+     span: String
+     start: Int
+}
+
+type AuthorCollection {
+     id: String
+}
+
+type Author {
+     _hash_id: String
+     email: String
+     first: String
+     fist: String
+     last: String
+     middle: String
+     suffix: String
+}
+
+type BodyTextCollection {
+     id: String
+}
+
+type BodyText {
+     _hash_id: String
+     section: String
+     text: String
+}
+
+type Citation {
+     _hash_id: String
+     end: Int
+     mention: String
+     start: Int
+     text: String
+}
+
+type CooperativePatentClassification {
+     classification_cpc: String
+}
+
+type Fragment {
+     kind: String
+     sequence: Int
+     text: String
+}
+
+type GOTerm {
+     name: String
+     namespace: String
+     obsolete: Boolean
+     sid: String
+     subsets:[String]
+}
+
+type GeneSymbol {
+     sid: String
+     status: String
+     taxid: String
+}
+
+type Gene {
+     Feature_type: String
+     Full_name_from_nomenclature_authority: String
+     GeneID: String
+     LocusTag: String
+     Modification_date: String
+     Nomenclature_status: String
+     Other_designations: String
+     Symbol: String
+     Symbol_from_nomenclature_authority: String
+     Synonyms: String
+     chromosome: String
+     dbXrefs: String
+     description: String
+     map_location: String
+     name: String
+     sid: String
+     source: String
+     tax_id: String
+     taxid: String
+     type_of_gene: String
+}
+
+type GtexDetailedTissue {
+     name: String
+}
+
+type GtexTissue {
+     name: String
+}
+
+type InternationalPatentClassification {
+     classification_ipc: String
+}
+
+type LensID {
+     id: String
+}
+
+type Location {
+     _hash_id: String
+     addrLine: String
+     country: String
+     postBox: String
+     postCode: String
+     region: String
+     settlement: String
+}
+
+type NonPatentLiteratureCitation {
+     _hash_id: String
+     cit_text: String
+}
+
+type PaperID {
+     id: String
+     type: String
+}
+
+type Paper {
+     _hash_id: String
+     cord19_fulltext_hash: String
+     cord_uid: String
+     journal: String
+     publish_time: String
+     source: String
+     title: String
+     url: String
+}
+
+type PatentAbstract {
+     _hash_id: String
+     lang: String
+     text: String
+}
+
+type PatentCitationCollection {
+     id: String
+}
+
+type PatentClaim {
+     _hash_id: String
+     lang: String
+     text: String
+}
+
+type PatentClassificationCollection {
+     id: String
+}
+
+type PatentDescription {
+     _hash_id: String
+     lang: String
+     text: String
+}
+
+type PatentFamily {
+     family_id: Int
+     size: Int
+     type: String
+}
+
+type PatentLiteratureCitation {
+     _hash_id: String
+     lens_id: String
+     pub_key: String
+}
+
+type PatentNumber {
+     pub_key: String
+}
+
+type PatentTitle {
+     _hash_id: String
+     lang: String
+     text: String
+}
+
+type Patent {
+     filing_date: String
+     filing_key: String
+     jurisdiction: String
+     lens_id: String
+     lens_url: String
+     pub_date: String
+     pub_key: String
+     type: String
+}
+
+type Pathway {
+     name: String
+     org: String
+     sid: String
+     source: String
+     taxid: String
+}
+
+type Protein {
+     category: String
+     desc: String
+     length: String
+     name: String
+     sid: String
+     source: String
+     status: String
+     taxid: String
+     version: String
+}
+
+type ReferenceCollection {
+     id: String
+}
+
+type Reference {
+     _hash_id: String
+     issn: String
+     name: String
+     pages: String
+     ref_id: String
+     title: String
+     venue: String
+     volume: String
+     year: Int
+}
+
+type Transcript {
+     length: String
+     sid: String
+     source: String
+     status: String
+     taxid: String
+     version: String
+}
+
+type USPatentClassification {
+     classification_us: String
+}
+
+type Word {
+	match10: Boolean
+	match11: Boolean
+	match12: Boolean
+	match3: Boolean
+	match4: Boolean
+	match5: Boolean
+	match6: Boolean
+	match7: Boolean
+	match8: Boolean
+	match9: Boolean
+	value: String
+}
