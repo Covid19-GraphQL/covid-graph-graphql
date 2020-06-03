@@ -1,0 +1,10 @@
+query {
+  GeneSymbolInterface(first: 5) {
+    ... on OmitLength {
+      sid
+      status
+      taxid      
+      __typename
+    }
+  }
+}

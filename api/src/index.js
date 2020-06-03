@@ -33,6 +33,7 @@ const augmentedSchema = makeAugmentedSchema({
   resolvers,
   config: {
     debug: true,
+    // Mutation API generation disabled for read-only CovidGraph DB
     mutation: false
   }
 });

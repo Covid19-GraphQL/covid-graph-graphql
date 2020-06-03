@@ -1,0 +1,10 @@
+query {
+  Fragment(first: 5) {
+    ... on FromPatentTitle {
+      __typename
+      kind
+      sequence
+      text      
+    }
+  }
+}

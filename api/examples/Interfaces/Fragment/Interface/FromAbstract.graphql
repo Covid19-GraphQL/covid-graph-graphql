@@ -1,0 +1,13 @@
+query {
+  Fragment(first: 5) {
+    ... on FromAbstract {
+      __typename
+      kind
+      sequence
+      text
+      mentions {
+        sid
+      }
+    }
+  }
+}

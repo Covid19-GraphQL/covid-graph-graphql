@@ -1,0 +1,19 @@
+query {
+  DailyReport(first: 5, filter: {
+    uuid: "USSouth Carolina2020-04-27 02:30:52"
+  }) {
+    __typename
+    uuid
+    confirmed
+    date {
+      year
+      month
+      day
+      hour
+      minute
+      second
+    }
+    death
+    recovered
+  }
+}

@@ -1,0 +1,27 @@
+query {
+  FromBodyText(first: 5, filter: {
+    mentions: {
+      status: "synonym"
+    }
+  }) {
+    kind
+    sequence
+    text
+    mentions {
+      sid
+      status
+    }
+    bodytexts {
+      _hash_id
+      section
+      text
+      bodytextcollections {
+        id
+        papers {
+          _hash_id
+        }
+      }
+    }
+    _id
+  }
+}

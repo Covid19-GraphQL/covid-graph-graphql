@@ -1,0 +1,19 @@
+query {
+  DailyReportInterface(first: 5) {
+    ... on Latest {
+      __typename
+      uuid
+      confirmed
+      date {
+        year
+        month
+        day
+        hour
+        minute
+        second
+      }
+      death
+      recovered
+    }
+  }
+}

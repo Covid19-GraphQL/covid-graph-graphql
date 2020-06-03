@@ -1,0 +1,30 @@
+query {
+  OmitWord(first: 5) {
+    sid
+    status
+    taxid
+    synonym(first: 2) {
+      sid
+      status
+      taxid
+      synonym(first: 2) {
+        sid
+        status
+        taxid
+      }
+      __typename
+    }
+    synonymRelation {
+      to(first: 2) {
+        source
+        GeneSymbol {
+          sid
+          status
+          taxid
+          __typename
+        }
+      }
+    }
+    __typename
+  }
+}

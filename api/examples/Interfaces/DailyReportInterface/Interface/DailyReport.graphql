@@ -1,0 +1,20 @@
+# Query for all :DailyReport nodes and return those with only the :DailyReport label
+query {
+  DailyReportInterface(first: 5) {
+    ... on DailyReport {
+      __typename
+      uuid
+      confirmed
+      date {
+        year
+        month
+        day
+        hour
+        minute
+        second
+      }
+      death
+      recovered
+    }
+  }
+}

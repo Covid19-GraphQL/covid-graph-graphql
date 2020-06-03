@@ -1,0 +1,16 @@
+query {
+  Fragment(first: 5) {
+    ... on FromBodyText {
+      __typename
+      kind
+      sequence
+      text
+      mentions {
+        sid
+      }
+      bodytexts {
+        _hash_id
+      }
+    }
+  }
+}
