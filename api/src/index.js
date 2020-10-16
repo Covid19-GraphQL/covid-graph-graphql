@@ -21,7 +21,11 @@ const driver = neo4j.driver(
   neo4j.auth.basic(
     process.env.COVID_GRAPH_NEO4J_USER || "public",
     process.env.COVID_GRAPH_NEO4J_PASSWORD || "corona"
-  )
+  ),
+  {
+    encrypted: false,
+    trust: "TRUST_SYSTEM_CA_SIGNED_CERTIFICATES",
+  }
 );
 
 // Build an executable GraphQL schema augmented for Neo4j
