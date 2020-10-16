@@ -17,7 +17,7 @@ const port = process.env.GRAPHQL_LISTEN_PORT || 4001;
 const path = process.env.GRAPHQL_URI || "/";
 
 const driver = neo4j.driver(
-  process.env.COVID_GRAPH_NEO4J_URI || "bolt+public://db.covidgraph.org:7687",
+  process.env.COVID_GRAPH_NEO4J_URI || "bolt://db.covidgraph.org:7687",
   neo4j.auth.basic(
     process.env.COVID_GRAPH_NEO4J_USER || "public",
     process.env.COVID_GRAPH_NEO4J_PASSWORD || "corona"

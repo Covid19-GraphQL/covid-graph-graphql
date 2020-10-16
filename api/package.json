@@ -20,7 +20,7 @@
     "braces": "^3.0.2",
     "dotenv": "^7.0.0",
     "express": "^4.17.1",
-    "neo4j-driver": "^4.1.1",
+    "neo4j-driver": "^4.0.2",
     "neo4j-graphql-js": "^2.15.1"
   },
   "devDependencies": {
