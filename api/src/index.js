@@ -23,8 +23,8 @@ const driver = neo4j.driver(
     process.env.COVID_GRAPH_NEO4J_PASSWORD || "corona"
   ),
   {
-    encrypted: false,
-    trust: "TRUST_SYSTEM_CA_SIGNED_CERTIFICATES",
+    encrypted: true,
+    trust: "TRUST_SYSTEM_CA_SIGNED_CERTIFICATES"
   }
 );
 
