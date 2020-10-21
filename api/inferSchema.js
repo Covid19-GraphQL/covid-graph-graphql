@@ -18,4 +18,6 @@ const schemaInferenceOptions = {
 
 inferSchema(driver, schemaInferenceOptions).then(result => {
   writeStream.write(result.typeDefs);
+}).catch(error => {
+  console.error(error);
 });

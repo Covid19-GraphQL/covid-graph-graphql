@@ -1,8 +1,0 @@
-query {
-  GeneSymbolInterface(first: 5) {
-    sid
-    status
-    taxid
-    __typename
-  }
-}
