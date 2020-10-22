@@ -6,20 +6,20 @@ import { cypher } from 'neo4j-graphql-js'
 // implementing them.
 
 export const typeDefs = gql`
-  # See: ../Patents/typeDefs/Fragment.js and ../Papers/typeDefs/Fragment.js
-  # for node Object types that implement this Interface type.
-
   # The current design is such that every implementing node Object type has 
   # a .geneSymbols property witha dedicated @relation type that goes out to
   # GeneSymbol. Generalization of this field may be possible, by adding
   # .geneSymbols to this interface type and changing all @relation types
   # to come .from Fragment rather than each being type-specific.
 
-  # There are currently 14554 matches where Fragment.text = Word.value
-  # Cypher: match (f:Fragment) match (w:Word) where f.text = w.value return count(f)
+  # Current metrics:
+  # 14554 = match (f:Fragment) match (w:Word) where f.text = w.value return count(f)
+  # 355105 = match (f:Fragment) match (n:NamedEntity) where f.text = n.value return count(f)
+  # 9579 = match (f:Fragment) match (k:Keyword) where f.text = k.word return count(f)
+  # 20 = match (f:Fragment) match (g:GOTerm) where f.text = g.name return count(f) 
 
-  # There are currently 355105 matches where Fragment.text = NamedEntity.value
-  # Cypher: match (f:Fragment) match (n:NamedEntity) where f.text = n.value return count(f)
+  # See: ../Patents/typeDefs/Fragment.js and ../Papers/typeDefs/Fragment.js
+  # for node Object types that implement this Interface type.
   interface Fragment {
     text: String!
     sequence: Int!

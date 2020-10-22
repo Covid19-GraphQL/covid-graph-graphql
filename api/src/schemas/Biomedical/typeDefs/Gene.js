@@ -24,7 +24,7 @@ export const typeDefs = gql`
     taxid: String
     type_of_gene: String
     transcripts: [GeneCodes]
-    expressions: [Expressed]
+    expressedTissues: [Expressed]
     pathways: [Member]
     mapsGenes: [MapsGene]
     mapsGeneSymbols: [MapsGeneSymbol]
@@ -69,9 +69,9 @@ export const typeDefs = gql`
 
   type Expressed @relation(from: "gene", to: "tissue") {
     gene: Gene!
-    val: String!
-    valToString: String!
-    value: Float!
+    val: String
+    valToString: String
+    value: Float
     tissue: GtexDetailedTissue!
   }
 
@@ -180,35 +180,30 @@ export const typeDefs = gql`
   type MapsGene @relation(name: "MAPS", from: "mappedBy", to: "gene") {
     mappedBy: Gene!
     source: String!
-    status: String
-    symbol: Gene!
+    gene: Gene!
   }
 
   type MapsGeneSymbol @relation(name: "MAPS", from: "mappedBy", to: "symbol") {
     mappedBy: Gene!
     source: String!
-    status: String
     symbol: GeneSymbol!
   }
 
   type MapsGeneSymbolsWithOmitedSpecialChar @relation(name: "MAPS", from: "mappedBy", to: "symbol") {
     mappedBy: Gene!
     source: String!
-    status: String
     symbol: OmitSpecialChar!
   }
 
   type MapsGeneSymbolsWithOmitLength @relation(name: "MAPS", from: "mappedBy", to: "symbol") {
     mappedBy: Gene!
     source: String!
-    status: String
     symbol: OmitLength!
   }
 
   type MapsGeneSymbolsWithOmitWord @relation(name: "MAPS", from: "mappedBy", to: "symbol") {
     mappedBy: Gene!
     source: String!
-    status: String
     symbol: OmitWord!
   }  
 `

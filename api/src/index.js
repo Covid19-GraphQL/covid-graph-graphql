@@ -2,7 +2,7 @@ import { ApolloServer } from 'apollo-server-express'
 import express from 'express'
 import { makeAugmentedSchema } from 'neo4j-graphql-js'
 import neo4j from 'neo4j-driver'
-import { typeDefs, resolvers } from './schemas/schema'
+import { typeDefs, resolvers } from './graphql-schema'
 import dotenv from 'dotenv'
 
 // set environment variables from .env
@@ -58,9 +58,9 @@ const server = new ApolloServer({
 })
 
 // Specify host, port and path for GraphQL endpoint
-const port = process.env.GRAPHQL_SERVER_PORT || 4001
-const host = process.env.GRAPHQL_SERVER_HOST || '0.0.0.0'
-const path = process.env.GRAPHQL_SERVER_PATH || '/graphql'
+export const port = process.env.GRAPHQL_SERVER_PORT || 4001
+export const host = process.env.GRAPHQL_SERVER_HOST || '0.0.0.0'
+export const path = process.env.GRAPHQL_SERVER_PATH || '/graphql'
 
 /*
  * Optionally, apply Express middleware for authentication, etc

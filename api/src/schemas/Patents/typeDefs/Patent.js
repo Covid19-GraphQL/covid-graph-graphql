@@ -4,11 +4,11 @@ import { cypher } from 'neo4j-graphql-js'
 export const typeDefs = gql`
   type Patent {
     filing_key: ID! @id
-    filing_date: Date
+    filing_date: String
     jurisdiction: String!
     lens_id: ID!
     lens_url: String!
-    pub_date: Date
+    pub_date: String
     pub_key: ID!
     type: String!
     lensId: [LensID] @relation(name: "PATENT_HAS_LENSID", direction: OUT)
@@ -38,9 +38,9 @@ export const typeDefs = gql`
   }
 
   type HasLensId @relation(name: "PATENTFAMILY_HAS_LENSID", from: "patentFamily", to: "id") {
-    from: PatentFamily!
+    patentFamily: PatentFamily!
     position: Int!
-    to: LensID!
+    id: LensID!
   }
 
   type PatentNumber {
@@ -69,9 +69,9 @@ export const typeDefs = gql`
     from: "collection", 
     to: "citation"
   ) {
-    from: PatentCitationCollection!
+    collection: PatentCitationCollection!
     position: Int!
-    to: PatentLiteratureCitation!
+    citation: PatentLiteratureCitation!
   }
 
   type HasNonPatentLiteratureCitation @relation(
@@ -79,9 +79,9 @@ export const typeDefs = gql`
     from: "collection", 
     to: "citation"
   ) {
-    from: PatentCitationCollection!
+    collection: PatentCitationCollection!
     position: Int!
-    to: NonPatentLiteratureCitation!
+    citation: NonPatentLiteratureCitation!
   }
 
   type NonPatentLiteratureCitation {
@@ -103,9 +103,9 @@ export const typeDefs = gql`
     from: "collection", 
     to: "classification"
   ) {
-    from: PatentClassificationCollection!
+    collection: PatentClassificationCollection!
     position: Int!
-    to: CooperativePatentClassification!
+    classification: CooperativePatentClassification!
   }
 
   type CooperativePatentClassification {
@@ -118,9 +118,9 @@ export const typeDefs = gql`
     from: "collection", 
     to: "classification"
   ) {
-    from: PatentClassificationCollection!
+    collection: PatentClassificationCollection!
     position: Int!
-    to: InternationalPatentClassification!
+    classification: InternationalPatentClassification!
   }
 
   type InternationalPatentClassification {
@@ -133,9 +133,9 @@ export const typeDefs = gql`
     from: "collection", 
     to: "classification"
   ) {
-    from: PatentClassificationCollection!
+    collection: PatentClassificationCollection!
     position: Int!
-    to: USPatentClassification!
+    classification: USPatentClassification!
   }
 
   type USPatentClassification {
@@ -144,13 +144,13 @@ export const typeDefs = gql`
   }
 
   type HasPatentAbstract @relation(
-      name: "PATENT_HAS_PATENTABSTRACT", 
-      from: "patent", 
-      to: "abstract"
-    ) {
-    from: Patent!
+    name: "PATENT_HAS_PATENTABSTRACT", 
+    from: "patent", 
+    to: "abstract"
+  ) {
+    patent: Patent!
     position: Int!
-    to: PatentAbstract!
+    abstract: PatentAbstract!
   }
 
   type PatentAbstract {
@@ -162,9 +162,9 @@ export const typeDefs = gql`
   }
 
   type Inventor @relation(from: "patent", to: "entity") {
-    from: Patent!
+    patent: Patent!
     position: Int!
-    to: Entity!
+    entity: Entity!
   }
 
   type Entity {
@@ -175,15 +175,15 @@ export const typeDefs = gql`
   }
 
   type Applicant @relation(from: "patent", to: "entity") {
-    from: Patent!
+    patent: Patent!
     position: Int!
-    to: Entity!
+    entity: Entity!
   }
 
   type HasPatentTitle @relation(name: "PATENT_HAS_PATENTTITLE", from: "patent", to: "title") {
-    from: Patent!
+    patent: Patent!
     position: Int!
-    to: PatentTitle!
+    title: PatentTitle!
   }
 
   type PatentTitle {
@@ -195,9 +195,9 @@ export const typeDefs = gql`
   }
 
   type HasPatentClaim @relation(name: "PATENT_HAS_PATENTCLAIM", from: "patent", to: "claim") {
-    from: Patent!
+    patent: Patent!
     position: Int!
-    to: PatentClaim!
+    claim: PatentClaim!
   }
 
   type PatentClaim {
@@ -209,9 +209,9 @@ export const typeDefs = gql`
   }
 
   type HasPatentDescription @relation(name: "PATENT_HAS_PATENTDESCRIPTION", from: "patent", to: "description") {
-    from: Patent!
+    patent: Patent!
     position: Int!
-    to: PatentDescription!
+    description: PatentDescription!
   }
 
   type PatentDescription {
@@ -223,8 +223,8 @@ export const typeDefs = gql`
   }
 
   type Owner @relation(from: "patent", to: "entity") {
-    from: Patent!
+    patent: Patent!
     position: Int!
-    to: Entity!
+    entity: Entity!
   }
 `

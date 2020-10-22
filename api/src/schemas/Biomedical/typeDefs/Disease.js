@@ -10,13 +10,20 @@ export const typeDefs = gql`
     link: String
     name: String
     source: String
+    isA: [DiseaseIsA]
     associatatesDaG: [AssociatesDaG]
     localizesDla: [LocalizesDla]
   }
 
+  type DiseaseIsA @relation(name: "IS_A", from: "isDisease", to: "disease") {
+    isDisease: Disease!
+    position: Int!
+    disease: Disease!
+  }
+
   type AssociatesDaG @relation(name: "ASSOCIATES_DaG", from: "disease", to: "gene") {
     disease: Disease!
-    highConfidence: Int!
+    high_confidence: Int!
     locus: Int!
     primary: Int!
     status: String!
@@ -27,7 +34,7 @@ export const typeDefs = gql`
     disease: Disease!
     cooccurrence: Int!
     expected: Float!
-    pFisher: Float!
+    p_fisher: Float!
     anatomy: Anatomy!
   }
 

@@ -15,6 +15,8 @@ export const typeDefs = gql`
   type City {
     name: String! @id
     country: [Country] @relation(name: "LOCATED_IN", direction: OUT)
+    # ClinicalTrial facilities
+    facilities: [Facility] @relation(name: "LOCATED_IN", direction: IN)
   }
 
   type PartOf @relation(from: "province", to: "country") {
@@ -61,4 +63,31 @@ export const typeDefs = gql`
     recovered: String!
     province: LatestReported
   }
+
+  type AgeGroup {
+    group: String! @id
+    span: String!
+    start: Int!
+    total: [CurrentTotal]
+    male: [CurrentMale]
+    female: [CurrentFemale]
+  }
+
+  type CurrentTotal @relation(from: "country", to: "ageGroup") {
+    country: Country!
+    count: Int!
+    ageGroup: AgeGroup!
+  }
+
+  type CurrentMale @relation(from: "country", to: "ageGroup") {
+    country: Country!
+    count: Int!
+    ageGroup: AgeGroup!
+  }
+
+  type CurrentFemale @relation(from: "country", to: "ageGroup") {
+    country: Country!
+    count: Int!
+    ageGroup: AgeGroup!
+  }  
 `

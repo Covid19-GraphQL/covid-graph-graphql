@@ -2,6 +2,7 @@ import { gql } from 'apollo-server'
 import { cypher } from 'neo4j-graphql-js'
 
 export const typeDefs = gql`  
+  # No apparent relationships
   type Word {
     value: String!
     match10: Boolean

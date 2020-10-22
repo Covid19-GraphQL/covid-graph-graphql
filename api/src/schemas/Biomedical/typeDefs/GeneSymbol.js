@@ -21,16 +21,16 @@ export const typeDefs = gql`
     mentionedInPatentClaims: [PatentClaimMentionsGeneSymbol]
   }
 
-  type Synonym @relation(from: "geneSymbol", to: "synonym") {
-    geneSymbol: GeneSymbol
+  type Synonym @relation(name: "SYNONYM", from: "synonymOf", to: "synonym") {
+    synonymOf: GeneSymbol
     source: String!
     synonym: GeneSymbol
   }
 
-  type SynonymSpecialCharOmitted @relation(from: "geneSymbol", to: "synonym") {
-    geneSymbol: GeneSymbol
+  type SynonymSpecialCharOmitted @relation(name: "SYNONYM", from: "synonymOf", to: "synonym") {
+    synonymOf: OmitSpecialChar
     source: String!
-    synonym: OmitSpecialChar
+    synonym: GeneSymbol
   }
 
   type OmitSpecialChar {
@@ -40,10 +40,10 @@ export const typeDefs = gql`
     synonyms: [Synonym]
   }
 
-  type SynonymLengthOmitted @relation(from: "geneSymbol", to: "synonym") {
-    geneSymbol: GeneSymbol
+  type SynonymLengthOmitted @relation(name: "SYNONYM", from: "synonymOf", to: "synonym") {
+    synonymOf: OmitLength
     source: String!
-    synonym: OmitLength
+    synonym: GeneSymbol
   }
 
   type OmitLength {
@@ -53,10 +53,10 @@ export const typeDefs = gql`
     synonyms: [Synonym]
   }
 
-  type SynonymWordOmitted @relation(from: "geneSymbol", to: "synonym") {
-    geneSymbol: GeneSymbol
+  type SynonymWordOmitted @relation(name: "SYNONYM", from: "synonymOf", to: "synonym") {
+    synonymOf: OmitWord
     source: String!
-    synonym: OmitWord
+    synonym: GeneSymbol
   }
 
   type OmitWord {
@@ -66,5 +66,4 @@ export const typeDefs = gql`
     synonyms: [Synonym]
     synonymsWordOmitted: [SynonymWordOmitted]
   }
-  
 `

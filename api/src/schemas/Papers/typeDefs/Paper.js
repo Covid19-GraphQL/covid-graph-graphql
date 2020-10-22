@@ -3,8 +3,7 @@ import { cypher } from 'neo4j-graphql-js'
 
 export const typeDefs = gql`
   type Paper {
-    _hash_id: ID! @id
-    cord19fulltext_hash: String
+    _hash_id: ID @id
     cord_uid: ID!
     journal: String
     publish_time: String
@@ -25,13 +24,13 @@ export const typeDefs = gql`
   }
 
   type HasAuthor @relation(name: "AUTHORCOLLECTION_HAS_AUTHOR", from: "collection", to: "author") {
-    from: AuthorCollection!
+    collection: AuthorCollection!
     position: Int!
-    to: Author!
+    author: Author!
   }
 
   type Author {
-    _hash_id: ID! @id
+    _hash_id: ID @id
     email: String
     first: String
     fist: String
@@ -43,7 +42,7 @@ export const typeDefs = gql`
   }
 
   type Affiliation {
-    _hash_id: ID! @id
+    _hash_id: ID @id
     institution: String!
     laboratory: String!
     authors: [Author] @relation(name: "AUTHOR_HAS_AFFILIATION", direction: IN)
@@ -51,7 +50,7 @@ export const typeDefs = gql`
   }
 
   type Location {
-    _hash_id: ID! @id
+    _hash_id: ID @id
     addrLine: String
     country: String
     postBox: String
@@ -62,20 +61,21 @@ export const typeDefs = gql`
   }
 
   type HasPaperId @relation(name: "PAPER_HAS_PAPERID", from: "paper", to: "id") {
-    from: Paper!
+    paper: Paper!
     position: Int!
-    to: PaperID!
+    id: PaperID!
   }
 
   type PaperID {
     id: ID! @id
     type: String!
     papers: [Paper] @relation(name: "PAPER_HAS_PAPERID", direction: IN)
-    references: [Reference] @relation(name: "REFERENCE_HAS_PAPERID", direction: IN)
+    references: [ReferenceHasPaperid]
+    hasPublicationId: [PaperID] @relation(name: "HAS_PUBLICATION_ID", direction: "IN")
   }
 
   type Reference {
-    _hash_id: ID! @id
+    _hash_id: ID @id
     issn: ID
     name: String!
     pages: String
@@ -96,15 +96,15 @@ export const typeDefs = gql`
   }
 
   type HasReference @relation(name: "REFERENCECOLLECTION_HAS_REFERENCE", from: "collection", to: "reference") {
-    from: ReferenceCollection!
+    collection: ReferenceCollection!
     position: Int!
-    to: Reference!
+    reference: Reference!
   }
 
-  type ReferenceHasPaperid @relation {
-    from: Reference!
+  type ReferenceHasPaperid @relation(name: "REFERENCE_HAS_PAPERID", from: "reference", to: "id") {
+    reference: Reference!
     position: Int!
-    to: PaperID!
+    id: PaperID!
   }
   
   type AbstractCollection {
@@ -120,13 +120,14 @@ export const typeDefs = gql`
   }
 
   type Abstract {
-    _hash_id: ID! @id
+    _hash_id: ID @id
     section: String
     text: String!
     fragments: [FromAbstract] @relation(name: "HAS_FRAGMENT", direction: OUT)
     collections: [HasAbstract]
-    mentions: [AbstractMentions]
     citation: [AbstractHasCitation]
+    # NamedEntity
+    mentions: [AbstractMentions]
   }
 
   type AbstractMentions @relation(name: "MENTIONS", from: "abstract", to: "namedEntity") {
@@ -136,46 +137,52 @@ export const typeDefs = gql`
   }
 
   type AbstractHasCitation @relation(from: "abstract", to: "citation") {
-    from: Abstract!
+    abstract: Abstract!
     position: Int!
-    to: Citation!
+    citation: Citation!
   }
 
   type Citation {
-    _hash_id: ID! @id
-    end: Int!
+    name: String @id
+    _hash_id: ID
+    end: Int
     mention: String
-    start: Int!
+    start: Int
     text: String
     bodyTexts: [BodyText] @relation(name: "BODYTEXT_HAS_CITATION", direction: IN)
     abstracts: [Abstract] @relation(name: "ABSTRACT_HAS_CITATION", direction: IN)
     references: [Reference] @relation(name: "CITATION_HAS_REFERENCE", direction: OUT)
+    isReferenceType: [ReferenceType] @relation(name: "IS_REFERENCE_TYPE", direction: "OUT")
+    hasPublicationId: [PaperID] @relation(name: "HAS_PUBLICATION_ID", direction: "OUT")
+    # ClinicalTrial
+    clinicaltrials: [ClinicalTrial] @relation(name: "REFERS_TO", direction: "IN")
   }
 
   type BodyText {
-    _hash_id: ID! @id
+    _hash_id: ID @id
     section: String!
     text: String!
     bodyTextCollections: [BodyTextCollection] @relation(name: "BODYTEXTCOLLECTION_HAS_BODYTEXT", direction: IN)
+    # Fragment
     fragments: [FromBodyText] @relation(name: "HAS_FRAGMENT", direction: OUT)
     citations: [HasCitation]
   }
 
-  type HasCitation @relation(name: "BODYTEXT_HAS_CITATION", from: "bodytext", to: "citation") {
-    from: BodyText!
+  type HasCitation @relation(name: "BODYTEXT_HAS_CITATION", from: "bodyText", to: "citation") {
+    bodyText: BodyText!
     position: Int!
-    to: Citation!
+    citation: Citation!
   }
 
   type BodyTextCollection {
     id: ID! @id
     papers: [Paper] @relation(name: "PAPER_HAS_BODYTEXTCOLLECTION", direction: IN)
-    bodyText: [HasBodyText]
+    bodyTexts: [HasBodyText]
   }
 
-  type HasBodyText @relation(name: "BODYTEXTCOLLECTION_HAS_BODYTEXT", from: "collection", to: "bodytext") {
-    from: BodyTextCollection!
+  type HasBodyText @relation(name: "BODYTEXTCOLLECTION_HAS_BODYTEXT", from: "collection", to: "bodyText") {
+    collection: BodyTextCollection!
     position: Int!
-    to: BodyText!
+    bodyText: BodyText!
   }
 `

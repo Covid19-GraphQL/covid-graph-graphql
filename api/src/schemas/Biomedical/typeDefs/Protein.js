@@ -21,22 +21,7 @@ export const typeDefs = gql`
     protein: Protein!
     evidence: String!
     qualifier: String
-    term: GOTerm!
-  }
-
-  type GOTerm {
-    sid: String!
-    name: String!
-    namespace: String!
-    obsolete: Boolean!
-    subsets: [String]!
-    associations: [Association]
-    is: [IsA]
-  }
-
-  type IsA @relation(from: "subTerm", to: "term") {
-    subTerm: GOTerm!
-    source: String!
+    # BioBERT
     term: GOTerm!
   }
 

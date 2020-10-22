@@ -55,6 +55,7 @@ export const typeDefs = gql`
   type Facility {
     name: String! @id
     trials: [ClinicalTrial] @relation(name: "CONDUCTED_AT", direction: IN)
+    city: City @relation(name: "LOCATED_IN", direction: OUT)
   }
 
   type Intervention {
@@ -89,13 +90,9 @@ export const typeDefs = gql`
 
   type Condition {
     disease: String! @id
+    # BioBERT
     keywords: [Keyword] @relation(name: "HAS_KEYWORD", direction: OUT)
     trials: [ClinicalTrial] @relation(name: "IS_STUDYING", direction: IN)
-  }
-
-  type Keyword {
-    word: String! @id
-    conditions: [Condition] @relation(name: "HAS_KEYWORD", direction: IN)
   }
 
   type Phase {
