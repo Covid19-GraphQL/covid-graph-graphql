@@ -43,5 +43,10 @@
     "nodemon": "^2.0.6",
     "nyc": "^15.1.0",
     "shx": "^0.3.2"
+  },
+  "ava": {
+    "require": [
+      "@babel/register"
+    ]
   }
 }
