@@ -69,5 +69,5 @@ const path = process.env.GRAPHQL_SERVER_PATH || '/graphql'
 server.applyMiddleware({ app, path })
 
 app.listen({ host, port, path }, () => {
-  console.log(`GraphQL server ready at http://${host}:${port}${path}`)
+  console.log(`GraphQL server ready at http://localhost:${port}${path}`)
 })
