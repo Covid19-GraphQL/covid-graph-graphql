@@ -69,7 +69,7 @@ references:
 
 jobs:
 
-  integration_tests:
+  tests:
     docker: *node14
     steps: *run_tests_steps
 
