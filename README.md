@@ -1,19 +1,6 @@
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://grandstack.io/deploy-starter-netlify) [![Deploy to Vercel](https://vercel.com/button)](https://grandstack.io/deploy-starter-vercel) [![Provision Neo4j](https://grandstack.io/img/provision-neo4j.png)](https://sandbox.neo4j.com/?usecase=blank-sandbox)
+[![Image from covidgraph.org](https://covidgraph.org/img/content-img/Schema_v1.1_no_logo.png)](http://www.youtube.com/watch?v=1JLs166lPcA 'Hands On With The GRANDstack Starter')
 
-# GRANDstack Starter
-
-```
-npx create-grandstack-app myNewApp
-```
-
-
-This project is a starter for building a [GRANDstack](https://grandstack.io) (GraphQL, React, Apollo, Neo4j Database) application. There are two components to the starter, the web frontend application (in React and Angular flavors) and the API app (GraphQL server).
-
-The starter represents a **business reviews dashboard**. You need to adjust the GraphQL schema, the seed data, database index creation, and the UI components for your use-case.
-
-[![Hands On With The GRANDstack Starter](http://img.youtube.com/vi/rPC71lUhK_I/0.jpg)](http://www.youtube.com/watch?v=1JLs166lPcA 'Hands On With The GRANDstack Starter')
-
-_Hands On With The GRANDstack Starter Video_
+_Image from covidgraph.org_
 
 ## Quickstart
 
