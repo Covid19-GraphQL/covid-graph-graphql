@@ -3,7 +3,7 @@ This project serves to develop and maintain a [Neo4j-GraphQL](https://grandstack
 [![Image from covidgraph.org](https://covidgraph.org/img/content-img/Schema_v1.1_no_logo.png)](https://covidgraph.org/ 'Image from covidgraph.org')
 
 ## Getting Started
-To install root dependencies, run: 
+Install root dependencies: 
 ```sh
 npm install
 ```
@@ -12,7 +12,7 @@ and install `/api` dependencies:
 cd api
 npm install
 ```
-You can then start the API server with: 
+In the root directory, you can start the API server with: 
 ```sh
 run run start
 ```
