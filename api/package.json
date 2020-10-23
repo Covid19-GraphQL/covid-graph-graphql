@@ -9,19 +9,19 @@
     "build": "babel src --out-dir build && shx cp .env build 2>/dev/null || : && shx cp src/schema.graphql build",
     "now-build": "babel src --out-dir build && shx cp src/schema.graphql build",
     "start": "npm run build && node build/index.js",
-    "integration": "nyc --reporter=lcov ava --timeout=15s ./src/schemas/**/tests/*.test.js --verbose"
+    "integration": "nyc --reporter=lcov ava --timeout=45s ./src/schemas/**/tests/*.test.js --verbose"
   },
   "author": "Michael Graham",
   "license": "Apache-2.0",
   "dependencies": {
-    "apollo-server": "^2.18.2",
-    "apollo-server-lambda": "^2.18.2",
-    "csv-parse": "^4.12.0",
-    "dotenv": "^8.2.0",
+    "apollo-server": "^2.14.2",
+    "apollo-server-lambda": "^2.14.2",
+    "csv-parse": "^4.10.1",
+    "dotenv": "^7.0.0",
     "graphql-tools": "^6.2.4",
-    "neo4j-driver": "^4.1.2",
-    "neo4j-graphql-js": "^2.16.4",
-    "react": "^17.0.1"
+    "neo4j-driver": "^4.0.2",
+    "neo4j-graphql-js": "^2.17.0",
+    "react": "^16.13.1"
   },
   "devDependencies": {
     "@apollo/client": "^3.2.5",
