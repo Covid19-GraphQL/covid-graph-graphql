@@ -2,12 +2,6 @@ version: 2
 
 references:
 
-  node8: &node8
-    - image: circleci/node:8-browsers
-  node10: &node10
-    - image: circleci/node:10-browsers
-  node12: &node12
-    - image: circleci/node:12-browsers
   node14: &node14
     - image: circleci/node:14-browsers
 
@@ -75,48 +69,17 @@ references:
 
 jobs:
 
-  # Node 8
-  install_for_node8:
-    docker: *node8
-    steps: *install_node_modules_steps
-
-  # Node 10
-  install_for_node10:
-    docker: *node10
-    steps: *install_node_modules_steps
-
-  # Node 12
-  install_for_node12:
-    docker: *node12
-    steps: *install_node_modules_steps
-
-  # Node 14
-  install_for_node14:
-    docker: *node14
-    steps: *install_node_modules_steps
-
   tests:
+    docker: *node14
     steps: *run_tests_steps
 
 workflows:
   version: 2
   integration_test:
     jobs:
-      - install_for_node8
-      - install_for_node10
-      - install_for_node12
       - install_for_node14
       - tests
 
-      - node8:
-          requires:
-            - install_for_node8
-      - node10:
-          requires:
-            - install_for_node10
-      - node12:
-          requires:
-            - install_for_node12
       - node14:
           requires:
             - install_for_node14
