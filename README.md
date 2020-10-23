@@ -37,11 +37,11 @@ _Image from covidgraph.org_
     * [Author](https://github.com/Covid19-GraphQL/covid-graph-graphql/blob/076ffb5423a79331a51d8e192016a926bf78f04d/api/src/schemas/Papers/typeDefs/Paper.js#L32)
       * [Affiliation](https://github.com/Covid19-GraphQL/covid-graph-graphql/blob/076ffb5423a79331a51d8e192016a926bf78f04d/api/src/schemas/Papers/typeDefs/Paper.js#L44)
         * [Location](https://github.com/Covid19-GraphQL/covid-graph-graphql/blob/076ffb5423a79331a51d8e192016a926bf78f04d/api/src/schemas/Papers/typeDefs/Paper.js#L52)
-    * [ReferenceCollection](https://github.com/Covid19-GraphQL/covid-graph-graphql/blob/076ffb5423a79331a51d8e192016a926bf78f04d/api/src/schemas/Papers/typeDefs/Paper.js#L92)
-      * [BodyText](https://github.com/Covid19-GraphQL/covid-graph-graphql/blob/076ffb5423a79331a51d8e192016a926bf78f04d/api/src/schemas/Papers/typeDefs/Paper.js#L161)
-      * [Reference](https://github.com/Covid19-GraphQL/covid-graph-graphql/blob/076ffb5423a79331a51d8e192016a926bf78f04d/api/src/schemas/Papers/typeDefs/Paper.js#L77)
-      * [Abstract](https://github.com/Covid19-GraphQL/covid-graph-graphql/blob/076ffb5423a79331a51d8e192016a926bf78f04d/api/src/schemas/Papers/typeDefs/Paper.js#L122)
-        * [Citation](https://github.com/Covid19-GraphQL/covid-graph-graphql/blob/076ffb5423a79331a51d8e192016a926bf78f04d/api/src/schemas/Papers/typeDefs/Paper.js#L145)
+  * [ReferenceCollection](https://github.com/Covid19-GraphQL/covid-graph-graphql/blob/076ffb5423a79331a51d8e192016a926bf78f04d/api/src/schemas/Papers/typeDefs/Paper.js#L92)
+    * [BodyText](https://github.com/Covid19-GraphQL/covid-graph-graphql/blob/076ffb5423a79331a51d8e192016a926bf78f04d/api/src/schemas/Papers/typeDefs/Paper.js#L161)
+    * [Reference](https://github.com/Covid19-GraphQL/covid-graph-graphql/blob/076ffb5423a79331a51d8e192016a926bf78f04d/api/src/schemas/Papers/typeDefs/Paper.js#L77)
+    * [Abstract](https://github.com/Covid19-GraphQL/covid-graph-graphql/blob/076ffb5423a79331a51d8e192016a926bf78f04d/api/src/schemas/Papers/typeDefs/Paper.js#L122)
+      * [Citation](https://github.com/Covid19-GraphQL/covid-graph-graphql/blob/076ffb5423a79331a51d8e192016a926bf78f04d/api/src/schemas/Papers/typeDefs/Paper.js#L145)
 
 ### Clinical Trials
   * [ClinicalTrial](https://github.com/Covid19-GraphQL/covid-graph-graphql/blob/076ffb5423a79331a51d8e192016a926bf78f04d/api/src/schemas/ClinicalTrials/typeDefs/ClinicalTrial.js#L5)
@@ -56,10 +56,10 @@ _Image from covidgraph.org_
 
 ### Statistical & Geographic
   * [Country](https://github.com/Covid19-GraphQL/covid-graph-graphql/blob/076ffb5423a79331a51d8e192016a926bf78f04d/api/src/schemas/Cases/typeDefs/Country.js#L5)
-    * [AgeGroup](https://github.com/Covid19-GraphQL/covid-graph-graphql/blob/076ffb5423a79331a51d8e192016a926bf78f04d/api/src/schemas/Cases/typeDefs/Country.js#L67)
     * [City](https://github.com/Covid19-GraphQL/covid-graph-graphql/blob/076ffb5423a79331a51d8e192016a926bf78f04d/api/src/schemas/Cases/typeDefs/Country.js#L15)
     * [Province](https://github.com/Covid19-GraphQL/covid-graph-graphql/blob/076ffb5423a79331a51d8e192016a926bf78f04d/api/src/schemas/Cases/typeDefs/Country.js#L28)
       * [DailyReport](https://github.com/Covid19-GraphQL/covid-graph-graphql/blob/076ffb5423a79331a51d8e192016a926bf78f04d/api/src/schemas/Cases/typeDefs/Country.js#L43)
+    * [AgeGroup](https://github.com/Covid19-GraphQL/covid-graph-graphql/blob/076ffb5423a79331a51d8e192016a926bf78f04d/api/src/schemas/Cases/typeDefs/Country.js#L67)
 
 ## Tests
 ### Patents
