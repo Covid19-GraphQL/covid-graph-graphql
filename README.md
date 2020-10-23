@@ -3,7 +3,26 @@ This project serves to develop and maintain a [Neo4j-GraphQL](https://grandstack
 [![Image from covidgraph.org](https://covidgraph.org/img/content-img/Schema_v1.1_no_logo.png)](https://covidgraph.org/ 'Image from covidgraph.org')
 
 ## Getting Started
+To install root dependencies, run: 
+```sh
+npm install
+```
+and install `/api` dependencies:
+```sh
+cd api
+npm install
+```
+You can then start the API server with: 
+```sh
+run run start
+```
+To develop the API server and print Cypher translations to your terminal:
+```sh
+cd api
+npm run start:dev
+```
 ## Schema
+The below links go to corresponding Neo4j-GraphQL type definitions:
 ### Patents
   * [Patent](https://github.com/Covid19-GraphQL/covid-graph-graphql/blob/5f3d1da4fffe6bc6982f52caa73bfb463df72621/api/src/schemas/Patents/typeDefs/Patent.js#L5)
   * [PatentTitle](https://github.com/Covid19-GraphQL/covid-graph-graphql/blob/5f3d1da4fffe6bc6982f52caa73bfb463df72621/api/src/schemas/Patents/typeDefs/Patent.js#L189)
@@ -60,6 +79,15 @@ This project serves to develop and maintain a [Neo4j-GraphQL](https://grandstack
     * [AgeGroup](https://github.com/Covid19-GraphQL/covid-graph-graphql/blob/076ffb5423a79331a51d8e192016a926bf78f04d/api/src/schemas/Cases/typeDefs/Country.js#L67)
 
 ## Tests
+Integration tests are run using [Ava](https://github.com/avajs/ava). To run the below tests, start the API server and run:
+```sh
+npm run test
+```
+If you're in `/api`, you can run: 
+```sh
+npm run integration
+```
+[![Integration tests](./img/integration-tests.png)](https://covidgraph.org/ 'Integration tests')
 ### Patents
   * [Patent](https://github.com/Covid19-GraphQL/covid-graph-graphql/blob/6d6581ce73909bc7c975bd0490410135f7032fd5/api/src/schemas/Patents/tests/Patent.test.js#L5)
 ### BioBERT (NLP + NER)
