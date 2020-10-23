@@ -1,0 +1,1291 @@
+interface Fragment {
+  text: String!
+  sequence: Int!
+  kind: String!
+}
+
+type GOTerm {
+  sid: String!
+  name: String!
+  namespace: String!
+  obsolete: Boolean!
+  subsets: [String]!
+  associations: [Association]
+  is: [IsA]
+}
+
+type IsA @relation(from: "subTerm", to: "term") {
+  subTerm: GOTerm!
+  source: String!
+  term: GOTerm!
+}
+
+type Keyword {
+  word: String! @id
+  conditions: [Condition] @relation(name: "HAS_KEYWORD", direction: IN)
+}
+
+type NamedEntity {
+  id: ID! @id
+  external_ids: [ID]
+  type: String!
+  value: String!
+  mentionedInAbstracts: [AbstractMentions]
+}
+
+type Word {
+  value: String!
+  match10: Boolean
+  match11: Boolean
+  match12: Boolean
+  match3: Boolean!
+  match4: Boolean
+  match5: Boolean
+  match6: Boolean
+  match7: Boolean
+  match8: Boolean
+  match9: Boolean
+}
+
+type Disease {
+  _id: ID! @id
+  definition: String
+  doid: String!
+  license: String
+  link: String
+  name: String
+  source: String
+  isA: [DiseaseIsA]
+  associatatesDaG: [AssociatesDaG]
+  localizesDla: [LocalizesDla]
+}
+
+type DiseaseIsA @relation(name: "IS_A", from: "isDisease", to: "disease") {
+  isDisease: Disease!
+  position: Int!
+  disease: Disease!
+}
+
+type AssociatesDaG @relation(name: "ASSOCIATES_DaG", from: "disease", to: "gene") {
+  disease: Disease!
+  high_confidence: Int!
+  locus: Int!
+  primary: Int!
+  status: String!
+  gene: Gene!
+}
+
+type LocalizesDla @relation(name: "LOCALIZES_DlA", from: "disease", to: "anatomy") {
+  disease: Disease!
+  cooccurrence: Int!
+  expected: Float!
+  p_fisher: Float!
+  anatomy: Anatomy!
+}
+
+type Anatomy {
+  _id: ID! @id
+  bto_id: ID
+  mesh_id: ID!
+  mesh_name: String!
+  name: String!
+  uberon_id: ID!
+  diseases: [LocalizesDla]
+}
+
+type Gene {
+  sid: ID! @id
+  Feature_type: String
+  Full_name_from_nomenclature_authority: String
+  GeneID: String
+  LocusTag: String
+  Modification_date: String
+  Nomenclature_status: String
+  Other_designations: String
+  Symbol: String
+  Symbol_from_nomenclature_authority: String
+  Synonyms: String
+  chromosome: String
+  dbXrefs: String
+  description: String
+  map_location: String
+  name: String
+  source: String!
+  tax_id: String
+  taxid: String
+  type_of_gene: String
+  transcripts: [GeneCodes]
+  expressedTissues: [Expressed]
+  pathways: [Member]
+  mapsGenes: [MapsGene]
+  mapsGeneSymbols: [MapsGeneSymbol]
+  mapsGeneSymbolsWithOmitSpecialChar: [MapsGeneSymbolsWithOmitedSpecialChar]
+  mapsGeneSymbolsWithOmitLength: [MapsGeneSymbolsWithOmitLength]
+  mapsGeneSymbolsWithOmitWord: [MapsGeneSymbolsWithOmitWord]
+  diseases: [AssociatesDaG]
+}
+
+type GeneCodes @relation(name: "CODES", from: "gene", to: "transcript") {
+  gene: Gene!
+  source: String!
+  taxid: String
+  transcript: Transcript!
+}
+
+type Transcript {
+  sid: ID! @id
+  length: String
+  source: String!
+  status: String
+  taxid: String!
+  version: String
+  genes: [GeneCodes]
+  proteins: [ProteinCodes]
+  mapsTranscripts: [MapsTranscript]
+}
+
+type MapsTranscript @relation(name: "MAPS", from: "mappedBy", to: "transcript") {
+  mappedBy: Transcript!
+  source: String!
+  status: String
+  transcript: Transcript!
+}
+
+type ProteinCodes @relation(name: "CODES", from: "transcript", to: "protein") {
+  transcript: Transcript!
+  source: String!
+  taxid: String
+  protein: Protein!
+}
+
+type Expressed @relation(from: "gene", to: "tissue") {
+  gene: Gene!
+  val: String
+  valToString: String
+  value: Float
+  tissue: GtexDetailedTissue!
+}
+
+type GtexDetailedTissue {
+  name: String! @id
+  genes: [Expressed]
+  tissues: [GtexTissue] @relation(name: "PARENT", direction: IN)
+}
+
+type GtexTissue {
+  name: String! @id
+  detail: [GtexDetailedTissue] @relation(name: "PARENT", direction: OUT)
+  samples: [GtexSample] @relation(name: "MEASURES", direction: IN)
+}
+
+type GtexSample {
+  sid: ID! @id
+  SM350NRM: Float!
+  SM550NRM: Float!
+  SMAFRZE: String!
+  SMALTALG: Float!
+  SMATSSCR: Float!
+  SMBSMMRT: Float!
+  SMCENTER: String!
+  SMCGLGTH: Float!
+  SMCHMPRS: Float!
+  SMDPMPRT: Float!
+  SME1ANTI: Float!
+  SME1MMRT: Float!
+  SME1MPRT: Float!
+  SME1PCTS: Float!
+  SME1SNSE: Float!
+  SME2ANTI: Float!
+  SME2MMRT: Float!
+  SME2MPRT: Float!
+  SME2PCTS: Float!
+  SME2SNSE: Float!
+  SMESTLBS: Float!
+  SMEXNCRT: Float!
+  SMEXPEFF: Float!
+  SMGAPPCT: Float!
+  SMGEBTCH: String!
+  SMGEBTCHD: String!
+  SMGEBTCHT: String!
+  SMGNSDTC: Float!
+  SMGTC: String!
+  SMMAPRT: Float!
+  SMMFLGTH: Float!
+  SMMNCPB: Float!
+  SMMNCV: Float!
+  SMMPPD: Float!
+  SMMPPDPR: Float!
+  SMMPPDUN: Float!
+  SMMPUNRT: Float!
+  SMNABTCH: String!
+  SMNABTCHD: String!
+  SMNABTCHT: String!
+  SMNTERRT: Float!
+  SMNTRART: Float!
+  SMNTRNRT: Float!
+  SMNUM5CD: Float!
+  SMNUMGPS: Float!
+  SMPTHNTS: String!
+  SMRDLGTH: Float!
+  SMRDTTL: Float!
+  SMRIN: Float!
+  SMRRNANM: Float!
+  SMRRNART: Float!
+  SMSFLGTH: Float!
+  SMSPLTRD: Float!
+  SMTRSCPT: Float!
+  SMTS: String!
+  SMTSD: String!
+  SMTSISCH: Float!
+  SMTSPAX: Float!
+  SMUBRID: String!
+  SMUNMPRT: Float!
+  SMUNPDRD: Float!
+  SMVQCFL: Float!
+  measures: [GtexTissue] @relation(name: "MEASURES", direction: OUT)
+}
+
+type Member @relation(from: "gene", to: "pathway") {
+  gene: Gene!
+  evidence: String!
+  source: String!
+  pathway: Pathway!
+}
+
+type Pathway {
+  sid: ID! @id
+  name: String!
+  org: String!
+  source: String!
+  taxid: String!
+  genes: [Member]
+  pathways: [Child]
+}
+
+type Child @relation(from: "child", to: "parent") {
+  child: Pathway!
+  source: String!
+  parent: Pathway!
+}
+
+type MapsGene @relation(name: "MAPS", from: "mappedBy", to: "gene") {
+  mappedBy: Gene!
+  source: String!
+  gene: Gene!
+}
+
+type MapsGeneSymbol @relation(name: "MAPS", from: "mappedBy", to: "symbol") {
+  mappedBy: Gene!
+  source: String!
+  symbol: GeneSymbol!
+}
+
+type MapsGeneSymbolsWithOmitedSpecialChar @relation(name: "MAPS", from: "mappedBy", to: "symbol") {
+  mappedBy: Gene!
+  source: String!
+  symbol: OmitSpecialChar!
+}
+
+type MapsGeneSymbolsWithOmitLength @relation(name: "MAPS", from: "mappedBy", to: "symbol") {
+  mappedBy: Gene!
+  source: String!
+  symbol: OmitLength!
+}
+
+type MapsGeneSymbolsWithOmitWord @relation(name: "MAPS", from: "mappedBy", to: "symbol") {
+  mappedBy: Gene!
+  source: String!
+  symbol: OmitWord!
+}
+
+type GeneSymbol {
+  sid: String!
+  status: String
+  taxid: String!
+  synonyms: [Synonym]
+  synonymsSpecialCharOmitted: [SynonymSpecialCharOmitted]
+  synonymsLengthOmitted: [SynonymLengthOmitted]
+  synonymsWordOmitted: [SynonymWordOmitted]
+  mentionedInFragments: [Fragment]
+  mentionedInBodyTextFragments: [FromBodyTextMentions]
+  mentionedInAbstractFragments: [FromAbstractMentions]
+  mentionedInPatentDescriptions: [PatentDescriptionMentionsGeneSymbol]
+  mentionedInPatentTitles: [PatentTitleMentionsGeneSymbol]
+  mentionedInPatentAbstracts: [PatentAbstractMentionsGeneSymbol]
+  mentionedInPatentClaims: [PatentClaimMentionsGeneSymbol]
+}
+
+type Synonym @relation(name: "SYNONYM", from: "synonymOf", to: "synonym") {
+  synonymOf: GeneSymbol
+  source: String!
+  synonym: GeneSymbol
+}
+
+type SynonymSpecialCharOmitted @relation(name: "SYNONYM", from: "synonymOf", to: "synonym") {
+  synonymOf: OmitSpecialChar
+  source: String!
+  synonym: GeneSymbol
+}
+
+type OmitSpecialChar {
+  sid: String!
+  status: String
+  taxid: String!
+  synonyms: [Synonym]
+}
+
+type SynonymLengthOmitted @relation(name: "SYNONYM", from: "synonymOf", to: "synonym") {
+  synonymOf: OmitLength
+  source: String!
+  synonym: GeneSymbol
+}
+
+type OmitLength {
+  sid: String!
+  status: String!
+  taxid: String!
+  synonyms: [Synonym]
+}
+
+type SynonymWordOmitted @relation(name: "SYNONYM", from: "synonymOf", to: "synonym") {
+  synonymOf: OmitWord
+  source: String!
+  synonym: GeneSymbol
+}
+
+type OmitWord {
+  sid: String!
+  status: String
+  taxid: String!
+  synonyms: [Synonym]
+  synonymsWordOmitted: [SynonymWordOmitted]
+}
+
+type Protein {
+  sid: String!
+  category: String
+  desc: String
+  length: String
+  name: String
+  source: String!
+  status: String
+  taxid: String!
+  version: String
+  associations: [Association]
+  transcripts: [ProteinCodes]
+  mapsProteins: [MapsProtein]
+}
+
+type Association @relation(from: "protein", to: "term") {
+  protein: Protein!
+  evidence: String!
+  qualifier: String
+  term: GOTerm!
+}
+
+type MapsProtein @relation(name: "MAPS", from: "mappedBy", to: "protein") {
+  mappedBy: Protein!
+  source: String!
+  taxid: String
+  protein: Protein!
+}
+
+type Country {
+  name: String! @id
+  un_id: ID
+  cities: [City] @relation(name: "LOCATED_IN", direction: IN)
+  provinces: [PartOf]
+  total: [CurrentTotal]
+  male: [CurrentMale]
+  female: [CurrentFemale]
+}
+
+type City {
+  name: String! @id
+  country: [Country] @relation(name: "LOCATED_IN", direction: OUT)
+  facilities: [Facility] @relation(name: "LOCATED_IN", direction: IN)
+}
+
+type PartOf @relation(from: "province", to: "country") {
+  province: Province!
+  source: String!
+  country: Country!
+}
+
+type Province {
+  name: String! @id
+  latitude: String
+  longitude: String
+  country: [Country] @relation(name: "PART_OF", direction: "OUT")
+  reports: [DailyReported]
+  latestReports: [LatestReported]
+}
+
+type DailyReported @relation(name: "REPORTED", from: "province", to: "report") {
+  province: Province!
+  source: String!
+  report: DailyReport!
+}
+
+type DailyReport {
+  uuid: ID! @id
+  date: LocalDateTime!
+  confirmed: Int!
+  death: String!
+  recovered: String!
+  province: DailyReported
+}
+
+type LatestReported @relation(name: "REPORTED", from: "province", to: "report") {
+  province: Province!
+  source: String!
+  report: Latest!
+}
+
+type Latest {
+  uuid: ID! @id
+  date: LocalDateTime!
+  confirmed: Int!
+  death: String!
+  recovered: String!
+  province: LatestReported
+}
+
+type AgeGroup {
+  group: String! @id
+  span: String!
+  start: Int!
+  total: [CurrentTotal]
+  male: [CurrentMale]
+  female: [CurrentFemale]
+}
+
+type CurrentTotal @relation(from: "country", to: "ageGroup") {
+  country: Country!
+  count: Int!
+  ageGroup: AgeGroup!
+}
+
+type CurrentMale @relation(from: "country", to: "ageGroup") {
+  country: Country!
+  count: Int!
+  ageGroup: AgeGroup!
+}
+
+type CurrentFemale @relation(from: "country", to: "ageGroup") {
+  country: Country!
+  count: Int!
+  ageGroup: AgeGroup!
+}
+
+type ClinicalTrial {
+  NCTId: ID! @id
+  data_source: String!
+  url: String!
+  refersTo: [Citation] @relation(name: "REFERS_TO", direction: OUT)
+  refersToUrl: [Link] @relation(name: "REFERS_TO_URL", direction: OUT)
+  useReferenceAs: [ReferenceType] @relation(name: "USE_REFERENCE_AS", direction: OUT)
+  conductedAt: [Facility] @relation(name: "CONDUCTED_AT", direction: OUT)
+  investigates: [Intervention] @relation(name: "INVESTIGATES_INTERVENTION", direction: OUT)
+  type: [StudyType] @relation(name: "IS_TYPE", direction: OUT)
+  isSponsoredBy: [Sponsor] @relation(name: "IS_SPONSORED_BY", direction: OUT)
+  isSupportedBy: [Collaborator] @relation(name: "IS_SUPPORTED_BY", direction: OUT)
+  isFdaRegulatedDevice: [Response] @relation(name: "IS_FDA_REGULATED_DEVICE", direction: OUT)
+  isUnapprovedDevice: [Response] @relation(name: "IS_UNAPPROVED_DEVICE", direction: OUT)
+  isFdaRegulatedDrug: [Response] @relation(name: "IS_FDA_REGULATED_DRUG", direction: OUT)
+  expandedAccess: [Response] @relation(name: "HAS_EXPANDED_ACCESS", direction: OUT)
+  isStudying: [Condition] @relation(name: "IS_STUDYING", direction: OUT)
+  isPhase: [Phase] @relation(name: "IS_PHASE", direction: OUT)
+  purpose: [Purpose] @relation(name: "HAS_PURPOSE", direction: OUT)
+  identifications: [StudyIdentification] @relation(name: "HAS_IDENTIFICATION", direction: OUT)
+  status: [Status] @relation(name: "HAS_STATUS", direction: OUT)
+  stopped: [StopReason] @relation(name: "WAS_STOPPED", direction: OUT)
+  started: [Start] @relation(name: "STARTED_AT", direction: OUT)
+  completed: [Completed] @relation(name: "COMPLETED_AT", direction: OUT)
+  conductedBy: [Investigator] @relation(name: "IS_CONDUCTED_BY", direction: OUT)
+  description: [Description] @relation(name: "HAS_DESCRIPTION", direction: OUT)
+  studyDesign: [Design] @relation(name: "HAS_STUDY_DESIGN", direction: OUT)
+  observationPeriod: [ObservationPeriod] @relation(name: "HAS_OBSERVATION_PERIOD", direction: OUT)
+  primaryOutcome: [Outcome] @relation(name: "HAS_PRIMARY_OUTCOME", direction: OUT)
+  secondaryOutcome: [Outcome] @relation(name: "HAS_SECONDARY_OUTCOME", direction: OUT)
+  otherOutcome: [Outcome] @relation(name: "HAS_OTHER_OUTCOME", direction: OUT)
+  studyPopulation: [StudyPopulation] @relation(name: "HAS_STUDY_POPULATION", direction: OUT)
+  inclusionCriteria: [InclusionCriteria] @relation(name: "HAS_INCLUSION_CRITERIA", direction: OUT)
+  exclusionCriteria: [ExclusionCriteria] @relation(name: "HAS_EXCLUSION_CRITERIA", direction: OUT)
+  contactPerson: [Contact] @relation(name: "HAS_CONTACT_PERSON", direction: OUT)
+  retainedBioSamples: [BioSpecimen] @relation(name: "HAS_SMAPLES_RETAINED_IN_BIOREPOSITORY", direction: OUT)
+  studyArms: [Arm] @relation(name: "HAS_STUDY_ARMS", direction: OUT)
+}
+
+type Link {
+  url: String! @id
+  trials: [ClinicalTrial] @relation(name: "REFERS_TO_URL", direction: IN)
+}
+
+type ReferenceType {
+  name: String! @id
+  citations: [Citation] @relation(name: "IS_REFERENCE_TYPE", direction: IN)
+  trials: [ClinicalTrial] @relation(name: "USE_REFERENCE_AS", direction: IN)
+}
+
+type Facility {
+  name: String! @id
+  trials: [ClinicalTrial] @relation(name: "CONDUCTED_AT", direction: IN)
+  city: City @relation(name: "LOCATED_IN", direction: OUT)
+}
+
+type Intervention {
+  name: String! @id
+  description: String!
+  type: String!
+  trials: [ClinicalTrial] @relation(name: "INVESTIGATES_INTERVENTION", direction: IN)
+}
+
+type StudyType {
+  type: String! @id
+  trials: [ClinicalTrial] @relation(name: "IS_TYPE", direction: IN)
+}
+
+type Sponsor {
+  name: String! @id
+  trials: [ClinicalTrial] @relation(name: "IS_SPONSORED_BY", direction: IN)
+}
+
+type Collaborator {
+  name: String! @id
+  trials: [ClinicalTrial] @relation(name: "IS_SUPPORTED_BY", direction: IN)
+}
+
+type Response {
+  YN: String! @id
+  isFdaRegulatedDevice: [ClinicalTrial] @relation(name: "IS_FDA_REGULATED_DEVICE", direction: IN)
+  isUnapprovedDevice: [ClinicalTrial] @relation(name: "IS_UNAPPROVED_DEVICE", direction: IN)
+  isFdaRegulatedDrug: [ClinicalTrial] @relation(name: "IS_FDA_REGULATED_DRUG", direction: IN)
+  expandedAccess: [ClinicalTrial] @relation(name: "HAS_EXPANDED_ACCESS", direction: IN)
+}
+
+type Condition {
+  disease: String! @id
+  keywords: [Keyword] @relation(name: "HAS_KEYWORD", direction: OUT)
+  trials: [ClinicalTrial] @relation(name: "IS_STUDYING", direction: IN)
+}
+
+type Phase {
+  phase: String! @id
+  trials: [ClinicalTrial] @relation(name: "IS_PHASE", direction: IN)
+}
+
+type Purpose {
+  name: String! @id
+  trials: [ClinicalTrial] @relation(name: "HAS_PURPOSE", direction: IN)
+}
+
+type StudyIdentification {
+  studyId: String! @id
+  acronym: String!
+  trials: [ClinicalTrial] @relation(name: "HAS_IDENTIFICATION", direction: IN)
+  title: [Title] @relation(name: "HAS_TITLE", direction: OUT)
+}
+
+type Title {
+  briefTitle: String! @id
+  officialTitle: String!
+  identifications: [StudyIdentification] @relation(name: "HAS_TITLE", direction: IN)
+}
+
+type Status {
+  status: String! @id
+  stopReason: [StopReason] @relation(name: "HAS_REASON", direction: OUT)
+  trials: [ClinicalTrial] @relation(name: "HAS_STATUS", direction: IN)
+}
+
+type StopReason {
+  reason: String! @id
+  trials: [ClinicalTrial] @relation(name: "WAS_STOPPED", direction: IN)
+  status: [Status] @relation(name: "HAS_REASON", direction: IN)
+}
+
+type Start {
+  date: String! @id
+  trials: [ClinicalTrial] @relation(name: "STARTED_AT", direction: IN)
+}
+
+type Completed {
+  completionDate: String! @id
+  primaryCompletionDate: String!
+  trials: [ClinicalTrial] @relation(name: "COMPLETED_AT", direction: IN)
+}
+
+type Investigator {
+  name: String! @id
+  affiliation: String!
+  trials: [ClinicalTrial] @relation(name: "IS_CONDUCTED_BY", direction: IN)
+  responsibilities: [Responsible] @relation(name: "IS_RESPOSIBLE", direction: IN)
+}
+
+type Responsible {
+  type: String! @id
+  investigator: [Investigator] @relation(name: "IS_RESPOSIBLE", direction: OUT)
+}
+
+type Description {
+  detailed: String! @id
+  summary: String!
+  trials: [ClinicalTrial] @relation(name: "HAS_DESCRIPTION", direction: IN)
+}
+
+type Design {
+  model: String
+  name: String
+  description: String
+  trials: [ClinicalTrial] @relation(name: "HAS_STUDY_DESIGN", direction: IN)
+  arms: [Arm] @relation(name: "BELONGS_TO_MODEL", direction: IN)
+}
+
+type ObservationPeriod {
+  time: String! @id
+  trials: [ClinicalTrial] @relation(name: "HAS_OBSERVATION_PERIOD", direction: IN)
+}
+
+type Outcome {
+  name: String! @id
+  description: String
+  time: String!
+  type: String!
+  primaryOutcomes: [ClinicalTrial] @relation(name: "HAS_PRIMARY_OUTCOME", direction: IN)
+  secondaryOutcomes: [ClinicalTrial] @relation(name: "HAS_SECONDARY_OUTCOME", direction: IN)
+  otherOutcomes: [ClinicalTrial] @relation(name: "HAS_OTHER_OUTCOME", direction: IN)
+}
+
+type StudyPopulation {
+  name: String! @id
+  sampling: String!
+  genders: [Gender] @relation(name: "INCLUDES_GENDER", direction: OUT)
+  ageRanges: [AgeRange] @relation(name: "INCLUDES_AGE_RANGE", direction: OUT)
+  trials: [ClinicalTrial] @relation(name: "HAS_STUDY_POPULATION", direction: IN)
+}
+
+type Gender {
+  name: String! @id
+  description: String!
+  populations: [StudyPopulation] @relation(name: "INCLUDES_GENDER", direction: IN)
+}
+
+type AgeRange {
+  maxAge: String! @id
+  minAge: String!
+  populations: [StudyPopulation] @relation(name: "INCLUDES_AGE_RANGE", direction: IN)
+}
+
+type InclusionCriteria {
+  criteria: String! @id
+  trials: [ClinicalTrial] @relation(name: "HAS_INCLUSION_CRITERIA", direction: IN)
+}
+
+type ExclusionCriteria {
+  criteria: String! @id
+  trials: [ClinicalTrial] @relation(name: "HAS_EXCLUSION_CRITERIA", direction: IN)
+}
+
+type Contact {
+  email: String! @id
+  name: String!
+  trials: [ClinicalTrial] @relation(name: "HAS_CONTACT_PERSON", direction: IN)
+}
+
+type BioSpecimen {
+  retension: String! @id
+  description: String!
+  trials: [ClinicalTrial] @relation(name: "HAS_SMAPLES_RETAINED_IN_BIOREPOSITORY", direction: IN)
+}
+
+type Arm {
+  name: String! @id
+  description: String
+  model: [Design] @relation(name: "BELONGS_TO_MODEL", direction: OUT)
+  trials: [ClinicalTrial] @relation(name: "HAS_STUDY_ARMS", direction: IN)
+}
+
+type Compound {
+  _id: ID! @id
+  description: String
+  type: String
+  name: String
+  source: String!
+  company: String
+  ttd_id: ID
+  chebi_id: ID
+  chemspider_id: Float
+  drugbank_id: ID
+  kegg_drug_id: ID
+  kegg_id: ID
+  pubchem_id: ID
+  unii: ID
+  inchi: ID
+  inchikey: ID
+  cas_number: String
+  accession_numbers: String
+  therapeutic_class: String
+  drug_class: String
+  compound_class: String
+  groups: String
+  categories: String
+  atc_codes: String
+  source_url: String!
+  drug_formula: String
+  drug_smiles: String
+  drug_type: String
+  highest_stat: String
+  indication: String
+  mechanism: String
+  synonyms: String
+  targets: [Targets]
+  isInhibitor: [IsInhibitor]
+  isAntagonist: [IsAntagonist]
+  isAgonist: [IsAgonist]
+  isActivator: [IsActivator]
+  isBinder: [IsBinder]
+}
+
+type Targets @relation(from: "compound", to: "target") {
+  compound: Compound!
+  activity: String!
+  moa: String
+  reference: String!
+  target: Target!
+}
+
+type IsInhibitor @relation(from: "compound", to: "target") {
+  compound: Compound!
+  activity: String!
+  moa: String!
+  reference: String!
+  target: Target!
+}
+
+type IsAntagonist @relation(from: "compound", to: "target") {
+  compound: Compound!
+  activity: String!
+  moa: String!
+  reference: String!
+  target: Target!
+}
+
+type IsAgonist @relation(from: "compound", to: "target") {
+  compound: Compound!
+  activity: String!
+  moa: String!
+  reference: String!
+  target: Target!
+}
+
+type IsActivator @relation(from: "compound", to: "target") {
+  compound: Compound!
+  activity: String!
+  moa: String!
+  reference: String!
+  target: Target!
+}
+
+type IsBinder @relation(from: "compound", to: "target") {
+  compound: Compound!
+  activity: String!
+  moa: String!
+  reference: String!
+  target: Target!
+}
+
+type Target {
+  _id: ID! @id
+  ttd_id: ID!
+  uniprot_id: ID
+  name: String!
+  type: String!
+  geneName: String
+  function: String
+  sequence: String
+  license: String!
+  source: String!
+  ec_number: String
+  bio_class: String
+  synonyms: String
+  targets: [Targets]
+  inhibitors: [IsInhibitor]
+  antagonists: [IsAntagonist]
+  agonists: [IsAgonist]
+  activators: [IsActivator]
+  binders: [IsBinder]
+}
+
+type FromAbstract implements Fragment {
+  text: String! @id
+  sequence: Int!
+  kind: String!
+  next: FromAbstract @relation(name: "NEXT", direction: OUT)
+  abstracts: [Abstract] @relation(name: "HAS_FRAGMENT", direction: IN)
+  mentionsGeneSymbols: [FromAbstractMentions]
+}
+
+type FromAbstractMentions @relation(name: "MENTIONS", from: "fromAbstract", to: "geneSymbol") {
+  fromAbstract: FromAbstract!
+  score: Float!
+  geneSymbol: GeneSymbol!
+}
+
+type FromBodyText implements Fragment {
+  text: String! @id
+  sequence: Int!
+  kind: String!
+  bodyTexts: [BodyText] @relation(name: "HAS_FRAGMENT", direction: IN)
+  next: FromBodyText @relation(name: "NEXT", direction: OUT)
+  mentionsGeneSymbols: [FromBodyTextMentions]
+}
+
+type FromBodyTextMentions @relation(name: "MENTIONS", from: "fromBodyText", to: "geneSymbol") {
+  fromBodyText: FromBodyText!
+  score: Float!
+  geneSymbol: GeneSymbol!
+}
+
+type Paper {
+  _hash_id: ID @id
+  cord_uid: ID!
+  journal: String
+  publish_time: String
+  source: String!
+  title: String
+  url: String
+  authorCollection: [AuthorCollection] @relation(name: "PAPER_HAS_AUTHORCOLLECTION", direction: OUT)
+  abstractCollection: [AbstractCollection] @relation(name: "PAPER_HAS_ABSTRACTCOLLECTION", direction: OUT)
+  referenceCollection: [ReferenceCollection] @relation(name: "PAPER_HAS_REFERENCECOLLECTION", direction: OUT)
+  bodyTextCollection: [BodyTextCollection] @relation(name: "PAPER_HAS_BODYTEXTCOLLECTION", direction: OUT)
+  paperId: [HasPaperId]
+}
+
+type AuthorCollection {
+  id: ID! @id
+  papers: [Paper] @relation(name: "PAPER_HAS_AUTHORCOLLECTION", direction: IN)
+  authors: [HasAuthor]
+}
+
+type HasAuthor @relation(name: "AUTHORCOLLECTION_HAS_AUTHOR", from: "collection", to: "author") {
+  collection: AuthorCollection!
+  position: Int!
+  author: Author!
+}
+
+type Author {
+  _hash_id: ID @id
+  email: String
+  first: String
+  fist: String
+  last: String
+  middle: String
+  suffix: String
+  collections: [AuthorCollection] @relation(name: "AUTHORCOLLECTION_HAS_AUTHOR", direction: IN)
+  affiliation: [Affiliation] @relation(name: "AUTHOR_HAS_AFFILIATION", direction: OUT)
+}
+
+type Affiliation {
+  _hash_id: ID @id
+  institution: String!
+  laboratory: String!
+  authors: [Author] @relation(name: "AUTHOR_HAS_AFFILIATION", direction: IN)
+  affiliation_has_location: [Location] @relation(name: "AFFILIATION_HAS_LOCATION", direction: OUT)
+}
+
+type Location {
+  _hash_id: ID @id
+  addrLine: String
+  country: String
+  postBox: String
+  postCode: String
+  region: String
+  settlement: String
+  affiliations: [Affiliation] @relation(name: "AFFILIATION_HAS_LOCATION", direction: IN)
+}
+
+type HasPaperId @relation(name: "PAPER_HAS_PAPERID", from: "paper", to: "id") {
+  paper: Paper!
+  position: Int!
+  id: PaperID!
+}
+
+type PaperID {
+  id: ID! @id
+  type: String!
+  papers: [Paper] @relation(name: "PAPER_HAS_PAPERID", direction: IN)
+  references: [ReferenceHasPaperid]
+  hasPublicationId: [PaperID] @relation(name: "HAS_PUBLICATION_ID", direction: "IN")
+}
+
+type Reference {
+  _hash_id: ID @id
+  issn: ID
+  name: String!
+  pages: String
+  ref_id: ID
+  title: String
+  venue: String
+  volume: String
+  year: Int
+  referenceCollections: [ReferenceCollection] @relation(name: "REFERENCECOLLECTION_HAS_REFERENCE", direction: IN)
+  citations: [Citation] @relation(name: "CITATION_HAS_REFERENCE", direction: IN)
+  paperId: [ReferenceHasPaperid]
+}
+
+type ReferenceCollection {
+  id: ID! @id
+  papers: [Paper] @relation(name: "PAPER_HAS_REFERENCECOLLECTION", direction: IN)
+  references: [HasReference]
+}
+
+type HasReference @relation(name: "REFERENCECOLLECTION_HAS_REFERENCE", from: "collection", to: "reference") {
+  collection: ReferenceCollection!
+  position: Int!
+  reference: Reference!
+}
+
+type ReferenceHasPaperid @relation(name: "REFERENCE_HAS_PAPERID", from: "reference", to: "id") {
+  reference: Reference!
+  position: Int!
+  id: PaperID!
+}
+
+type AbstractCollection {
+  id: ID! @id
+  papers: [Paper] @relation(name: "PAPER_HAS_ABSTRACTCOLLECTION", direction: IN)
+  abstracts: [HasAbstract]
+}
+
+type HasAbstract @relation(name: "ABSTRACTCOLLECTION_HAS_ABSTRACT", from: "collection", to: "abstract") {
+  collection: AbstractCollection!
+  position: Int!
+  abstract: Abstract!
+}
+
+type Abstract {
+  _hash_id: ID @id
+  section: String
+  text: String!
+  fragments: [FromAbstract] @relation(name: "HAS_FRAGMENT", direction: OUT)
+  collections: [HasAbstract]
+  citation: [AbstractHasCitation]
+  mentions: [AbstractMentions]
+}
+
+type AbstractMentions @relation(name: "MENTIONS", from: "abstract", to: "namedEntity") {
+  abstract: Abstract!
+  count: Int!
+  namedEntity: NamedEntity!
+}
+
+type AbstractHasCitation @relation(from: "abstract", to: "citation") {
+  abstract: Abstract!
+  position: Int!
+  citation: Citation!
+}
+
+type Citation {
+  name: String @id
+  _hash_id: ID
+  end: Int
+  mention: String
+  start: Int
+  text: String
+  bodyTexts: [BodyText] @relation(name: "BODYTEXT_HAS_CITATION", direction: IN)
+  abstracts: [Abstract] @relation(name: "ABSTRACT_HAS_CITATION", direction: IN)
+  references: [Reference] @relation(name: "CITATION_HAS_REFERENCE", direction: OUT)
+  isReferenceType: [ReferenceType] @relation(name: "IS_REFERENCE_TYPE", direction: "OUT")
+  hasPublicationId: [PaperID] @relation(name: "HAS_PUBLICATION_ID", direction: "OUT")
+  clinicaltrials: [ClinicalTrial] @relation(name: "REFERS_TO", direction: "IN")
+}
+
+type BodyText {
+  _hash_id: ID @id
+  section: String!
+  text: String!
+  bodyTextCollections: [BodyTextCollection] @relation(name: "BODYTEXTCOLLECTION_HAS_BODYTEXT", direction: IN)
+  fragments: [FromBodyText] @relation(name: "HAS_FRAGMENT", direction: OUT)
+  citations: [HasCitation]
+}
+
+type HasCitation @relation(name: "BODYTEXT_HAS_CITATION", from: "bodyText", to: "citation") {
+  bodyText: BodyText!
+  position: Int!
+  citation: Citation!
+}
+
+type BodyTextCollection {
+  id: ID! @id
+  papers: [Paper] @relation(name: "PAPER_HAS_BODYTEXTCOLLECTION", direction: IN)
+  bodyTexts: [HasBodyText]
+}
+
+type HasBodyText @relation(name: "BODYTEXTCOLLECTION_HAS_BODYTEXT", from: "collection", to: "bodyText") {
+  collection: BodyTextCollection!
+  position: Int!
+  bodyText: BodyText!
+}
+
+type FromPatentDescription implements Fragment {
+  text: String! @id
+  kind: String!
+  sequence: Int!
+  patentDescriptions: [PatentDescription] @relation(name: "HAS_FRAGMENT", direction: IN)
+  next: FromPatentDescription @relation(name: "NEXT", direction: OUT)
+  geneSymbols: [PatentDescriptionMentionsGeneSymbol]
+}
+
+type PatentDescriptionMentionsGeneSymbol @relation(name: "MENTIONS", from: "description", to: "symbol") {
+  description: FromPatentDescription!
+  score: Float!
+  symbol: GeneSymbol!
+}
+
+type FromPatentTitle implements Fragment {
+  text: String! @id
+  kind: String!
+  sequence: Int!
+  patentTitles: [PatentTitle] @relation(name: "HAS_FRAGMENT", direction: IN)
+  next: FromPatentTitle @relation(name: "NEXT", direction: OUT)
+  geneSymbols: [PatentTitleMentionsGeneSymbol]
+}
+
+type PatentTitleMentionsGeneSymbol @relation(name: "MENTIONS", from: "title", to: "symbol") {
+  title: FromPatentTitle!
+  score: Float!
+  symbol: GeneSymbol!
+}
+
+type FromPatentAbstract implements Fragment {
+  text: String! @id
+  sequence: Int!
+  kind: String!
+  patentAbstracts: [PatentAbstract] @relation(name: "HAS_FRAGMENT", direction: IN)
+  next: FromPatentAbstract @relation(name: "NEXT", direction: OUT)
+  geneSymbols: [PatentAbstractMentionsGeneSymbol]
+}
+
+type PatentAbstractMentionsGeneSymbol @relation(name: "MENTIONS", from: "abstract", to: "symbol") {
+  abstract: FromPatentAbstract!
+  score: Float!
+  symbol: GeneSymbol!
+}
+
+type FromPatentClaim implements Fragment {
+  text: String! @id
+  sequence: Int!
+  kind: String!
+  patentClaims: [PatentClaim] @relation(name: "HAS_FRAGMENT", direction: IN)
+  next: FromPatentClaim @relation(name: "NEXT", direction: OUT)
+  geneSymbols: [PatentClaimMentionsGeneSymbol]
+}
+
+type PatentClaimMentionsGeneSymbol @relation(name: "MENTIONS", from: "claim", to: "symbol") {
+  claim: FromPatentClaim!
+  score: Float!
+  symbol: GeneSymbol!
+}
+
+type Patent {
+  filing_key: ID! @id
+  filing_date: String
+  jurisdiction: String!
+  lens_id: ID!
+  lens_url: String!
+  pub_date: String
+  pub_key: ID!
+  type: String!
+  lensId: [LensID] @relation(name: "PATENT_HAS_LENSID", direction: OUT)
+  number: [PatentNumber] @relation(name: "PATENT_HAS_PATENTNUMBER", direction: OUT)
+  classifications: [PatentClassificationCollection] @relation(name: "PATENT_HAS_PATENTCLASSIFICATIONCOLLECTION", direction: OUT)
+  citations: [PatentCitationCollection] @relation(name: "PATENT_HAS_PATENTCITATIONCOLLECTION", direction: OUT)
+  abstracts: [HasPatentAbstract]
+  inventors: [Inventor]
+  applicants: [Applicant]
+  titles: [HasPatentTitle]
+  descriptions: [HasPatentDescription]
+  claims: [HasPatentClaim]
+  owner: [Owner]
+}
+
+type LensID {
+  id: ID! @id
+  patents: [Patent] @relation(name: "PATENT_HAS_LENSID", direction: IN)
+  familys: [PatentFamily] @relation(name: "PATENTFAMILY_HAS_LENSID", direction: IN)
+}
+
+type PatentFamily {
+  family_id: Int! @id
+  size: Int!
+  type: String!
+  lensId: [HasLensId]
+}
+
+type HasLensId @relation(name: "PATENTFAMILY_HAS_LENSID", from: "patentFamily", to: "id") {
+  patentFamily: PatentFamily!
+  position: Int!
+  id: LensID!
+}
+
+type PatentNumber {
+  pub_key: ID! @id
+  patents: [Patent] @relation(name: "PATENT_HAS_PATENTNUMBER", direction: IN)
+  citations: [PatentLiteratureCitation] @relation(name: "PATENTLITERATURECITATION_HAS_PATENTNUMBER", direction: IN)
+}
+
+type PatentLiteratureCitation {
+  _hash_id: ID! @id
+  lens_id: ID
+  pub_key: ID!
+  citations: [PatentCitationCollection] @relation(name: "PATENTCITATIONCOLLECTION_HAS_PATENTLITERATURECITATION", direction: IN)
+  number: [PatentNumber] @relation(name: "PATENTLITERATURECITATION_HAS_PATENTNUMBER", direction: OUT)
+}
+
+type PatentCitationCollection {
+  id: ID! @id
+  patents: [Patent] @relation(name: "PATENT_HAS_PATENTCITATIONCOLLECTION", direction: IN)
+  patentLiteratureCitations: [HasPatentLiteratureCitation]
+  nonPatentLiteratureCitations: [HasNonPatentLiteratureCitation]
+}
+
+type HasPatentLiteratureCitation @relation(name: "PATENTCITATIONCOLLECTION_HAS_PATENTLITERATURECITATION", from: "collection", to: "citation") {
+  collection: PatentCitationCollection!
+  position: Int!
+  citation: PatentLiteratureCitation!
+}
+
+type HasNonPatentLiteratureCitation @relation(name: "PATENTCITATIONCOLLECTION_HAS_NONPATENTLITERATURECITATION", from: "collection", to: "citation") {
+  collection: PatentCitationCollection!
+  position: Int!
+  citation: NonPatentLiteratureCitation!
+}
+
+type NonPatentLiteratureCitation {
+  _hash_id: ID! @id
+  cit_text: String!
+  patentCitationCollections: [PatentCitationCollection] @relation(name: "PATENTCITATIONCOLLECTION_HAS_NONPATENTLITERATURECITATION", direction: IN)
+}
+
+type PatentClassificationCollection {
+  id: ID! @id
+  patents: [Patent] @relation(name: "PATENT_HAS_PATENTCLASSIFICATIONCOLLECTION", direction: IN)
+  cooperativePatentClassification: [HasCooperativePatentClassification]
+  internationalPatentClassification: [HasInternationalPatentClassification]
+  usPatentClassification: [HasUSPatentClassification]
+}
+
+type HasCooperativePatentClassification @relation(name: "PATENTCLASSIFICATIONCOLLECTION_HAS_COOPERATIVEPATENTCLASSIFICATION", from: "collection", to: "classification") {
+  collection: PatentClassificationCollection!
+  position: Int!
+  classification: CooperativePatentClassification!
+}
+
+type CooperativePatentClassification {
+  classification_cpc: String!
+  patentClassificationCollections: [PatentClassificationCollection] @relation(name: "PATENTCLASSIFICATIONCOLLECTION_HAS_COOPERATIVEPATENTCLASSIFICATION", direction: IN)
+}
+
+type HasInternationalPatentClassification @relation(name: "PATENTCLASSIFICATIONCOLLECTION_HAS_INTERNATIONALPATENTCLASSIFICATION", from: "collection", to: "classification") {
+  collection: PatentClassificationCollection!
+  position: Int!
+  classification: InternationalPatentClassification!
+}
+
+type InternationalPatentClassification {
+  classification_ipc: String!
+  patentClassificationCollections: [PatentClassificationCollection] @relation(name: "PATENTCLASSIFICATIONCOLLECTION_HAS_INTERNATIONALPATENTCLASSIFICATION", direction: IN)
+}
+
+type HasUSPatentClassification @relation(name: "PATENTCLASSIFICATIONCOLLECTION_HAS_USPATENTCLASSIFICATION", from: "collection", to: "classification") {
+  collection: PatentClassificationCollection!
+  position: Int!
+  classification: USPatentClassification!
+}
+
+type USPatentClassification {
+  classification_us: String!
+  patentClassificationCollections: [PatentClassificationCollection] @relation(name: "PATENTCLASSIFICATIONCOLLECTION_HAS_USPATENTCLASSIFICATION", direction: IN)
+}
+
+type HasPatentAbstract @relation(name: "PATENT_HAS_PATENTABSTRACT", from: "patent", to: "abstract") {
+  patent: Patent!
+  position: Int!
+  abstract: PatentAbstract!
+}
+
+type PatentAbstract {
+  _hash_id: ID! @id
+  lang: String!
+  text: String!
+  patents: [Patent] @relation(name: "PATENT_HAS_PATENTABSTRACT", direction: IN)
+  fragments: [FromPatentAbstract] @relation(name: "HAS_FRAGMENT", direction: OUT)
+}
+
+type Inventor @relation(from: "patent", to: "entity") {
+  patent: Patent!
+  position: Int!
+  entity: Entity!
+}
+
+type Entity {
+  name: String! @id
+  patentsInventor: [Patent] @relation(name: "INVENTOR", direction: IN)
+  patentsApplicant: [Patent] @relation(name: "APPLICANT", direction: IN)
+  patentsOwner: [Patent] @relation(name: "OWNER", direction: IN)
+}
+
+type Applicant @relation(from: "patent", to: "entity") {
+  patent: Patent!
+  position: Int!
+  entity: Entity!
+}
+
+type HasPatentTitle @relation(name: "PATENT_HAS_PATENTTITLE", from: "patent", to: "title") {
+  patent: Patent!
+  position: Int!
+  title: PatentTitle!
+}
+
+type PatentTitle {
+  _hash_id: ID! @id
+  lang: String!
+  text: String!
+  patents: [Patent] @relation(name: "PATENT_HAS_PATENTTITLE", direction: IN)
+  fragments: [FromPatentTitle] @relation(name: "HAS_FRAGMENT", direction: OUT)
+}
+
+type HasPatentClaim @relation(name: "PATENT_HAS_PATENTCLAIM", from: "patent", to: "claim") {
+  patent: Patent!
+  position: Int!
+  claim: PatentClaim!
+}
+
+type PatentClaim {
+  _hash_id: ID! @id
+  lang: String!
+  text: String!
+  patents: [Patent] @relation(name: "PATENT_HAS_PATENTCLAIM", direction: IN)
+  fragments: [FromPatentClaim] @relation(name: "HAS_FRAGMENT", direction: OUT)
+}
+
+type HasPatentDescription @relation(name: "PATENT_HAS_PATENTDESCRIPTION", from: "patent", to: "description") {
+  patent: Patent!
+  position: Int!
+  description: PatentDescription!
+}
+
+type PatentDescription {
+  _hash_id: ID! @id
+  lang: String!
+  text: String!
+  patents: [Patent] @relation(name: "PATENT_HAS_PATENTDESCRIPTION", direction: IN)
+  fragments: [FromPatentDescription] @relation(name: "HAS_FRAGMENT", direction: OUT)
+}
+
+type Owner @relation(from: "patent", to: "entity") {
+  patent: Patent!
+  position: Int!
+  entity: Entity!
+}

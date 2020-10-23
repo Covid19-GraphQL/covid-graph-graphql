@@ -1,7 +1,12 @@
 import { mergeTypeDefs, mergeResolvers, loadFilesSync } from 'graphql-tools'
+import path from 'path'
 
-const dataSourceTypes = loadFilesSync('./src/schemas/**/typeDefs/*.js')
+const dataSourceTypes = loadFilesSync(
+  path.join(__dirname, './schemas/**/typeDefs/*.js')
+)
 export const typeDefs = mergeTypeDefs(dataSourceTypes)
 
-const dataSourceResolvers = loadFilesSync('./src/schemas/**/resolvers/*.js')
+const dataSourceResolvers = loadFilesSync(
+  path.join(__dirname, './schemas/**/resolvers/*.js')
+)
 export const resolvers = mergeResolvers(dataSourceResolvers)

@@ -7,10 +7,12 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "cross-env ./node_modules/.bin/nodemon --watch src --ext js,graphql --exec babel-node  src/index.js",
     "start:dev": "cross-env DEBUG=neo4j-graphql-js ./node_modules/.bin/nodemon --watch src --ext js,graphql --exec babel-node  src/index.js",
+    "start:vercel": "cross-env DEBUG=neo4j-graphql-js ./node_modules/.bin/nodemon --watch src --ext js,graphql --exec babel-node  src/vercel-index.js",
     "build": "babel src --out-dir build && shx cp .env build 2>/dev/null",
-    "now-build": "babel src --out-dir build",
+    "now-build": "babel src --out-dir build && shx cp src/schema.graphql build",
     "start:build": "npm run build && node build/index.js",
-    "integration": "nyc --reporter=lcov ava --timeout=45s ./src/schemas/**/tests/*.test.js --verbose"
+    "integration": "nyc --reporter=lcov ava --timeout=45s ./src/schemas/**/tests/*.test.js --verbose",
+    "print": "babel-node ./print-merged.js"
   },
   "author": "Michael Graham",
   "license": "Apache-2.0",
