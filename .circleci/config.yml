@@ -69,7 +69,7 @@ references:
 
 jobs:
 
-  tests:
+  integration_tests:
     docker: *node14
     steps: *run_tests_steps
 
@@ -83,6 +83,6 @@ workflows:
       - node14:
           requires:
             - install_for_node14
-      - tests:
+      - integration_tests:
           requires:
             - tests
