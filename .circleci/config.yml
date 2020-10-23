@@ -1,9 +1,125 @@
-orbs:
-  node: circleci/node@4.0.0
+version: 2
 
-version: 2.1
+references:
+
+  node8: &node8
+    - image: circleci/node:8-browsers
+  node10: &node10
+    - image: circleci/node:10-browsers
+  node12: &node12
+    - image: circleci/node:12-browsers
+  node14: &node14
+    - image: circleci/node:14-browsers
+
+  attach_workspace: &attach_workspace
+    attach_workspace:
+      at: ~/project
+
+  npm_cache_key: &npm_cache_key
+    v1-dependency-npm-{{ checksum "package-lock.json" }}-{{checksum "node-version" }}
+
+  restore_node_modules: &restore_node_modules
+    restore_cache:
+      keys:
+        - *npm_cache_key
+        - v1-dependency-npm-{{ checksum "package-lock.json" }}
+        - v1-dependency-npm-
+
+  cache_node_modules: &cache_node_modules
+    save_cache:
+      key: *npm_cache_key
+      paths:
+        - ./node_modules/
+
+  install_node_modules_steps: &install_node_modules_steps
+      - checkout
+
+      - run:
+          name: Create Node/NPM cache key
+          command: echo "$(node -v)\n$(npm -v)" > node-version
+
+      - *restore_node_modules
+
+      - run:
+          name: Install dependencies
+          command: npm install --no-save
+
+      - *cache_node_modules
+
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+
+  start_graphql: &start_graphql
+    run:
+      name: Start GraphQL Server
+      command: npm run start
+      background: true
+
+  wait_for_graphql: &wait_for_graphql
+    run:
+      name: Wait for GraphQL server to be available
+      command: ./scripts/wait-for-graphql.sh
+
+  run_tests: &run_tests
+    run:
+      name: Run Tests
+      command: npm run test
+
+  run_tests_steps: &run_tests_steps
+    - *attach_workspace
+    - *start_graphql
+    - *wait_for_graphql
+    - *run_tests
+
+jobs:
+
+  # Node 8
+  install_for_node8:
+    docker: *node8
+    steps: *install_node_modules_steps
+
+  # Node 10
+  install_for_node10:
+    docker: *node10
+    steps: *install_node_modules_steps
+
+  # Node 12
+  install_for_node12:
+    docker: *node12
+    steps: *install_node_modules_steps
+
+  # Node 14
+  install_for_node14:
+    docker: *node14
+    steps: *install_node_modules_steps
+
+  tests:
+    steps: *run_tests_steps
 
 workflows:
-  app-tests:
+  version: 2
+  integration_test:
     jobs:
-      - node/test
+      - install_for_node8
+      - install_for_node10
+      - install_for_node12
+      - install_for_node14
+      - tests
+
+      - node8:
+          requires:
+            - install_for_node8
+      - node10:
+          requires:
+            - install_for_node10
+      - node12:
+          requires:
+            - install_for_node12
+      - node14:
+          requires:
+            - install_for_node14
+      - tests:
+          requires:
+            - tests
