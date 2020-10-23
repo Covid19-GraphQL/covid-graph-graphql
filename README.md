@@ -5,6 +5,21 @@ This project serves to develop and maintain a [Neo4j-GraphQL](https://grandstack
 ## Demo
 This API is currently hosted by Vercel at: https://covid-graph-graphql.now.sh/. For example queries, please see the below [integration tests](#tests).
 
+Try this query 🚀
+```graphql
+query {
+  Paper(first: 50) {
+    _hash_id
+    cord_uid
+    journal
+    publish_time
+    source
+    title
+    url
+  }
+}
+```
+
 ## Getting Started
 Install root dependencies: 
 ```sh
