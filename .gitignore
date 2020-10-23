@@ -9,6 +9,10 @@ node_modules/
 # production
 build/
 
+# vercel
+.vercel
+/.env.build
+
 # misc
 .DS_Store
 .env
