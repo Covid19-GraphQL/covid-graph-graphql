@@ -1,11 +1,11 @@
 This project serves to develop and maintain a [Neo4j-GraphQL](https://grandstack.io/docs/neo4j-graphql-js) for the Neo4j graph [CovidGraph](https://covidgraph.org/) project. 
 
-## Schema
 
 [![Image from covidgraph.org](https://covidgraph.org/img/content-img/Schema_v1.1_no_logo.png)](http://www.youtube.com/watch?v=1JLs166lPcA 'Image from covidgraph.org')
 
 _Image from covidgraph.org_
-
+## Getting Started
+## Schema
 ### Patents
   * [Patent](https://github.com/Covid19-GraphQL/covid-graph-graphql/blob/5f3d1da4fffe6bc6982f52caa73bfb463df72621/api/src/schemas/Patents/typeDefs/Patent.js#L5)
   * [PatentTitle](https://github.com/Covid19-GraphQL/covid-graph-graphql/blob/5f3d1da4fffe6bc6982f52caa73bfb463df72621/api/src/schemas/Patents/typeDefs/Patent.js#L189)
@@ -60,3 +60,27 @@ _Image from covidgraph.org_
     * [City](https://github.com/Covid19-GraphQL/covid-graph-graphql/blob/076ffb5423a79331a51d8e192016a926bf78f04d/api/src/schemas/Cases/typeDefs/Country.js#L15)
     * [Province](https://github.com/Covid19-GraphQL/covid-graph-graphql/blob/076ffb5423a79331a51d8e192016a926bf78f04d/api/src/schemas/Cases/typeDefs/Country.js#L28)
       * [DailyReport](https://github.com/Covid19-GraphQL/covid-graph-graphql/blob/076ffb5423a79331a51d8e192016a926bf78f04d/api/src/schemas/Cases/typeDefs/Country.js#L43)
+
+## Tests
+### Patents
+  * [Patent](https://github.com/Covid19-GraphQL/covid-graph-graphql/blob/6d6581ce73909bc7c975bd0490410135f7032fd5/api/src/schemas/Patents/tests/Patent.test.js#L5)
+### BioBERT (NLP + NER)
+  * [NamedEntity path: (NamedEntity)<-[MENTIONS]-(Abstract)-[HAS_FRAGMENT]->(FromAbstract:Fragment)-[MENTIONS]->(GeneSymbol)](https://github.com/Covid19-GraphQL/covid-graph-graphql/blob/6d6581ce73909bc7c975bd0490410135f7032fd5/api/src/schemas/BioBERT/tests/NamedEntity.test.js#L5)
+
+### BioMedical
+  * [Gene](https://github.com/Covid19-GraphQL/covid-graph-graphql/blob/6d6581ce73909bc7c975bd0490410135f7032fd5/api/src/schemas/Biomedical/tests/Gene.test.js#L5)
+    * [GeneSymbol](https://github.com/Covid19-GraphQL/covid-graph-graphql/blob/6d6581ce73909bc7c975bd0490410135f7032fd5/api/src/schemas/Biomedical/tests/GeneSymbol.test.js#L5)
+    * [Disease](https://github.com/Covid19-GraphQL/covid-graph-graphql/blob/6d6581ce73909bc7c975bd0490410135f7032fd5/api/src/schemas/Biomedical/tests/Disease.test.js#L5)
+    * [Protein](https://github.com/Covid19-GraphQL/covid-graph-graphql/blob/6d6581ce73909bc7c975bd0490410135f7032fd5/api/src/schemas/Biomedical/tests/Protein.test.js#L5)
+
+### Papers
+  * [Paper](https://github.com/Covid19-GraphQL/covid-graph-graphql/blob/6d6581ce73909bc7c975bd0490410135f7032fd5/api/src/schemas/Papers/tests/Paper.test.js#L5)
+
+### Clinical Trials
+  * [ClinicalTrial](https://github.com/Covid19-GraphQL/covid-graph-graphql/blob/6d6581ce73909bc7c975bd0490410135f7032fd5/api/src/schemas/ClinicalTrials/tests/ClinicalTrial.test.js#L5)
+  * [Compound](https://github.com/Covid19-GraphQL/covid-graph-graphql/blob/6d6581ce73909bc7c975bd0490410135f7032fd5/api/src/schemas/ClinicalTrials/tests/Compound.test.js#L5)
+
+### Statistical & Geographic
+  * [Country path: (Country)<-[LOCATED_IN]-(City)<-[LOCATED_IN]-(Facility)](https://github.com/Covid19-GraphQL/covid-graph-graphql/blob/6d6581ce73909bc7c975bd0490410135f7032fd5/api/src/schemas/Cases/tests/Country.test.js#L5)
+  * [Country path: (Country)<-[PART_OF]-(Province)-[REPORTED]->(DailyReport)](https://github.com/Covid19-GraphQL/covid-graph-graphql/blob/6d6581ce73909bc7c975bd0490410135f7032fd5/api/src/schemas/Cases/tests/Country.test.js#L133)
+  * [Country to AgeGroups](https://github.com/Covid19-GraphQL/covid-graph-graphql/blob/6d6581ce73909bc7c975bd0490410135f7032fd5/api/src/schemas/Cases/tests/Country.test.js#L911)
