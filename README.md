@@ -8,60 +8,61 @@ _Image from covidgraph.org_
 
 ### Patents
   * [Patent](https://github.com/Covid19-GraphQL/covid-graph-graphql/blob/5f3d1da4fffe6bc6982f52caa73bfb463df72621/api/src/schemas/Patents/typeDefs/Patent.js#L5)
-  * PatentTitle
-  * PatentAbstract
-  * PatentDescription
-  * PatentClaim
-  * PatentNumber
-  * Entity
+  * [PatentTitle](https://github.com/Covid19-GraphQL/covid-graph-graphql/blob/5f3d1da4fffe6bc6982f52caa73bfb463df72621/api/src/schemas/Patents/typeDefs/Patent.js#L189)
+  * [PatentAbstract](https://github.com/Covid19-GraphQL/covid-graph-graphql/blob/5f3d1da4fffe6bc6982f52caa73bfb463df72621/api/src/schemas/Patents/typeDefs/Patent.js#L156)
+  * [PatentDescription](https://github.com/Covid19-GraphQL/covid-graph-graphql/blob/5f3d1da4fffe6bc6982f52caa73bfb463df72621/api/src/schemas/Patents/typeDefs/Patent.js#L217)
+  * [PatentClaim](https://github.com/Covid19-GraphQL/covid-graph-graphql/blob/5f3d1da4fffe6bc6982f52caa73bfb463df72621/api/src/schemas/Patents/typeDefs/Patent.js#L203)
+  * [PatentNumber](https://github.com/Covid19-GraphQL/covid-graph-graphql/blob/5f3d1da4fffe6bc6982f52caa73bfb463df72621/api/src/schemas/Patents/typeDefs/Patent.js#L46)
+  * [Entity](https://github.com/Covid19-GraphQL/covid-graph-graphql/blob/5f3d1da4fffe6bc6982f52caa73bfb463df72621/api/src/schemas/Patents/typeDefs/Patent.js#L170)
 
 ### BioBERT (NLP + NER)
-  * Fragment
-  * Keyword
-    * Paths: (ClinicalTrial.isStudying.keywords)
-  * NamedEntity 
-    * Paths
-      * (Paper.abstractCollection.abstracts.abstract.mentions.namedEntity)
-  * GOTerm (Biomedical)
-  * Word
+  * [Fragment]()
+  * [Keyword]()
+  * [NamedEntity]() 
+  * [GOTerm]() (Biomedical)
+  * [Word]()
 
 ### BioMedical
-  * Gene
-    * GeneSymbol
-    * GtexTissue
-    * Pathway
-    * Disease
-      * Anatomy
-    * Transcript
-      * Protein
+  * [Gene]()
+    * [GeneSymbol]()
+    * [GtexTissue]()
+    * [Pathway]()
+    * [Disease]()
+      * [Anatomy]()
+    * [Transcript]()
+      * [Protein]()
 
 ### Papers
-  * Paper
-    * Author
-      * Affiliation
-        * Location
-    * ReferenceCollection
-      * BodyText
-      * Reference
-      * Abstract
-        * Citation
+  * [Paper]()
+    * [Author]()
+      * [Affiliation]()
+        * [Location]()
+    * [ReferenceCollection]()
+      * [BodyText]()
+      * [Reference]()
+      * [Abstract]()
+        * [Citation]()
 
 ### Clinical Trials
-  * ClinicalTrial
-    * Design
-    * InclusionCriteria
-    * ExclusionCriteria
-    * Status
-    * Description
-    * Contact
-    * Phase
-    * Facility
+  * [ClinicalTrial]()
+    * [Design]()
+    * [InclusionCriteria]()
+    * [ExclusionCriteria]()
+    * [Status]()
+    * [Description]()
+    * [Contact]()
+    * [Phase]()
+    * [Facility]()
 
 ### Statistical & Geographic
-  * Country
-    * AgeGroup
-    * City
-    * Province
-      * DailyReport
+  * [Country]()
+    * [AgeGroup]()
+    * [City]()
+    * [Province]()
+      * [DailyReport]()
 
 ## Quickstart
+
+    * Paths: (ClinicalTrial.isStudying.keywords)
+    * Paths
+      * (Paper.abstractCollection.abstracts.abstract.mentions.namedEntity)
