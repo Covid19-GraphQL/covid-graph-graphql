@@ -105,7 +105,7 @@ If you're in `/api`, you can run:
 ```sh
 npm run integration
 ```
-[![Integration tests](./img/integration-tests.png)](https://covidgraph.org/ 'Integration tests')
+[![Integration tests](./img/integration-tests.png)]()
 ### Patents
   * [Patent](https://github.com/Covid19-GraphQL/covid-graph-graphql/blob/6d6581ce73909bc7c975bd0490410135f7032fd5/api/src/schemas/Patents/tests/Patent.test.js#L5)
 ### BioBERT (NLP + NER)
