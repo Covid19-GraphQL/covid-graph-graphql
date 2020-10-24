@@ -1,9 +1,9 @@
-This project serves to develop and maintain a [Neo4j-GraphQL](https://grandstack.io/docs/neo4j-graphql-js) API for the Neo4j graph database used by the [CovidGraph](https://covidgraph.org/) project. 
+This project serves to develop and maintain a [Neo4j-GraphQL](https://grandstack.io/docs/neo4j-graphql-js) API for the Neo4j graph used by the [CovidGraph](https://covidgraph.org/) project. 
 
 [![Image from covidgraph.org](https://covidgraph.org/img/content-img/Schema_v1.1_no_logo.png)](https://covidgraph.org/ 'Image from covidgraph.org')
 
 ## Demo
-The API is currently hosted by Vercel at: https://covid-graph-graphql.now.sh/. For example queries, please see the below [integration tests](#tests).
+This API is currently hosted by Vercel at: https://covid-graph-graphql.now.sh/. For example queries, please see the below [integration tests](#tests).
 
 Try this query 🚀
 ```graphql
@@ -105,7 +105,7 @@ If you're in `/api`, you can run:
 ```sh
 npm run integration
 ```
-[![Integration tests](./img/integration-tests.png)]()
+[![Integration tests](./img/integration-tests.png)](./img/integration-tests.png 'Integration tests')
 ### Patents
   * [Patent](https://github.com/Covid19-GraphQL/covid-graph-graphql/blob/6d6581ce73909bc7c975bd0490410135f7032fd5/api/src/schemas/Patents/tests/Patent.test.js#L5)
 ### BioBERT (NLP + NER)
