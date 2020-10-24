@@ -1,20 +1,16 @@
-name: JavaScript workflow
-
-on: [push]
-
 jobs:
   test:
-    runs-on: ubuntu-latest
-
+    executor:
+      name: node/default
+      tag: '13'
     steps:
-    - uses: actions/checkout@v1
-    - name: Use Node.js 12.x
-      uses: actions/setup-node@v1
-      with:
-        node-version: "12.x"
-    - name: npm install, and test
-      run: |
-        npm install
-        npm test
-      env:
-        CI: true
+      - checkout
+      - node/install-packages
+      - npm run test
+orbs:
+  node: 'circleci/node:x.y'
+version: 2.1
+workflows:
+  test_my_app:
+    jobs:
+      - test
