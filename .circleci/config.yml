@@ -1,14 +1,14 @@
 jobs:
   test:
-    executor:
-      name: node/default
-      tag: '13'
+    executor: node/default
     steps:
       - checkout
-      - node/install-packages
-      - npm run test
+      - node/install-packages:
+          cache-path: ~/project/node_modules
+          override-ci-command: npm install
+      - run: npm run test
 orbs:
-  node: 'circleci/node@3.0.0'
+  node: circleci/node@8.0.0
 version: 2.1
 workflows:
   test_my_app:
