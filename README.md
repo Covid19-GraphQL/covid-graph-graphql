@@ -88,6 +88,7 @@ The below links go to corresponding Neo4j-GraphQL type definitions:
     * [Contact](https://github.com/Covid19-GraphQL/covid-graph-graphql/blob/076ffb5423a79331a51d8e192016a926bf78f04d/api/src/schemas/ClinicalTrials/typeDefs/ClinicalTrial.js#L216)
     * [Phase](https://github.com/Covid19-GraphQL/covid-graph-graphql/blob/076ffb5423a79331a51d8e192016a926bf78f04d/api/src/schemas/ClinicalTrials/typeDefs/ClinicalTrial.js#L98)
     * [Facility](https://github.com/Covid19-GraphQL/covid-graph-graphql/blob/076ffb5423a79331a51d8e192016a926bf78f04d/api/src/schemas/ClinicalTrials/typeDefs/ClinicalTrial.js#L55)
+  * [Compound](https://github.com/Covid19-GraphQL/covid-graph-graphql/blob/076ffb5423a79331a51d8e192016a926bf78f04d/api/src/schemas/ClinicalTrials/typeDefs/Compound.js#L5)
 
 ### Statistical & Geographic
   * [Country](https://github.com/Covid19-GraphQL/covid-graph-graphql/blob/076ffb5423a79331a51d8e192016a926bf78f04d/api/src/schemas/Cases/typeDefs/Country.js#L5)
