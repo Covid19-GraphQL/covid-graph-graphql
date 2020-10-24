@@ -5,6 +5,9 @@ jobs:
       - checkout
       - node/install-packages:
           cache-path: ~/project/node_modules
+          override-ci-command: npm install
+      - node/install-packages:
+          cache-path: ~/project/api/node_modules
           override-ci-command: cd api && npm install
       - run: npm run start
       - run: npm run test
