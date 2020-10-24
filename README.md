@@ -1,9 +1,9 @@
-This project serves to develop and maintain a [Neo4j-GraphQL](https://grandstack.io/docs/neo4j-graphql-js) API for the Neo4j graph used by the [CovidGraph](https://covidgraph.org/) project. 
+This project serves to develop and maintain a [Neo4j-GraphQL](https://grandstack.io/docs/neo4j-graphql-js) API for the Neo4j graph database used by the [CovidGraph](https://covidgraph.org/) project. 
 
 [![Image from covidgraph.org](https://covidgraph.org/img/content-img/Schema_v1.1_no_logo.png)](https://covidgraph.org/ 'Image from covidgraph.org')
 
 ## Demo
-This API is currently hosted by Vercel at: https://covid-graph-graphql.now.sh/. For example queries, please see the below [integration tests](#tests).
+The API is currently hosted by Vercel at: https://covid-graph-graphql.now.sh/. For example queries, please see the below [integration tests](#tests).
 
 Try this query 🚀
 ```graphql
@@ -72,11 +72,11 @@ The below links go to corresponding Neo4j-GraphQL type definitions:
     * [Author](https://github.com/Covid19-GraphQL/covid-graph-graphql/blob/076ffb5423a79331a51d8e192016a926bf78f04d/api/src/schemas/Papers/typeDefs/Paper.js#L32)
       * [Affiliation](https://github.com/Covid19-GraphQL/covid-graph-graphql/blob/076ffb5423a79331a51d8e192016a926bf78f04d/api/src/schemas/Papers/typeDefs/Paper.js#L44)
         * [Location](https://github.com/Covid19-GraphQL/covid-graph-graphql/blob/076ffb5423a79331a51d8e192016a926bf78f04d/api/src/schemas/Papers/typeDefs/Paper.js#L52)
-  * [ReferenceCollection](https://github.com/Covid19-GraphQL/covid-graph-graphql/blob/076ffb5423a79331a51d8e192016a926bf78f04d/api/src/schemas/Papers/typeDefs/Paper.js#L92)
-    * [BodyText](https://github.com/Covid19-GraphQL/covid-graph-graphql/blob/076ffb5423a79331a51d8e192016a926bf78f04d/api/src/schemas/Papers/typeDefs/Paper.js#L161)
-    * [Reference](https://github.com/Covid19-GraphQL/covid-graph-graphql/blob/076ffb5423a79331a51d8e192016a926bf78f04d/api/src/schemas/Papers/typeDefs/Paper.js#L77)
-    * [Abstract](https://github.com/Covid19-GraphQL/covid-graph-graphql/blob/076ffb5423a79331a51d8e192016a926bf78f04d/api/src/schemas/Papers/typeDefs/Paper.js#L122)
-      * [Citation](https://github.com/Covid19-GraphQL/covid-graph-graphql/blob/076ffb5423a79331a51d8e192016a926bf78f04d/api/src/schemas/Papers/typeDefs/Paper.js#L145)
+    * [ReferenceCollection](https://github.com/Covid19-GraphQL/covid-graph-graphql/blob/076ffb5423a79331a51d8e192016a926bf78f04d/api/src/schemas/Papers/typeDefs/Paper.js#L92)
+      * [BodyText](https://github.com/Covid19-GraphQL/covid-graph-graphql/blob/076ffb5423a79331a51d8e192016a926bf78f04d/api/src/schemas/Papers/typeDefs/Paper.js#L161)
+      * [Reference](https://github.com/Covid19-GraphQL/covid-graph-graphql/blob/076ffb5423a79331a51d8e192016a926bf78f04d/api/src/schemas/Papers/typeDefs/Paper.js#L77)
+      * [Abstract](https://github.com/Covid19-GraphQL/covid-graph-graphql/blob/076ffb5423a79331a51d8e192016a926bf78f04d/api/src/schemas/Papers/typeDefs/Paper.js#L122)
+        * [Citation](https://github.com/Covid19-GraphQL/covid-graph-graphql/blob/076ffb5423a79331a51d8e192016a926bf78f04d/api/src/schemas/Papers/typeDefs/Paper.js#L145)
 
 ### Clinical Trials
   * [ClinicalTrial](https://github.com/Covid19-GraphQL/covid-graph-graphql/blob/076ffb5423a79331a51d8e192016a926bf78f04d/api/src/schemas/ClinicalTrials/typeDefs/ClinicalTrial.js#L5)
