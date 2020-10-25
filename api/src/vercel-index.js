@@ -1,5 +1,6 @@
 import { ApolloServer } from 'apollo-server-express'
 import express from 'express'
+import { express as voyagerMiddleware } from 'graphql-voyager/middleware'
 import { makeAugmentedSchema } from 'neo4j-graphql-js'
 import neo4j from 'neo4j-driver'
 import fs from 'fs'
@@ -70,6 +71,9 @@ const server = new ApolloServer({
 const port = 4001
 const host = 'localhost'
 const path = '/'
+
+app.use('/voyager', voyagerMiddleware({ endpointUrl: path }))
+
 /*
  * Optionally, apply Express middleware for authentication, etc
  * This also also allows us to specify a path for the GraphQL endpoint

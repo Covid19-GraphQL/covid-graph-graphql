@@ -22,6 +22,7 @@
     "csv-parse": "^4.10.1",
     "dotenv": "^7.0.0",
     "graphql-tools": "^6.2.4",
+    "graphql-voyager": "^1.0.0-rc.31",
     "neo4j-driver": "^4.0.2",
     "neo4j-graphql-js": "^2.17.0",
     "react": "^16.13.1"
