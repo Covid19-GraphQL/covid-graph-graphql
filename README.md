@@ -3,6 +3,8 @@
 This project serves to develop and maintain a [Neo4j-GraphQL](https://grandstack.io/docs/neo4j-graphql-js) API for the Neo4j graph database used by the [CovidGraph](https://covidgraph.org/) project. 
 
 * [Demo](#demo)
+  * [GraphQL Playground](#graphql-playground)
+  * [GraphQL Voyager](#graphql-voyager)
 * [Getting Started](#getting-started)
 * [Schema](#schema)
   * [Patents](#patents)
