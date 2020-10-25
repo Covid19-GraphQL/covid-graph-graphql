@@ -5,6 +5,12 @@ This project serves to develop and maintain a [Neo4j-GraphQL](https://grandstack
 * [Demo](#demo)
 * [Getting Started](#getting-started)
 * [Schema](#schema)
+  * [Patents](#patents)
+  * [BioBERT](#biobert-nlp--ner)
+  * [BioMedical](#biomedical)
+  * [Papers](#papers)
+  * [Clinical Trials](#clinical-trials)
+  * [Statistical & Geographic](#statistical--geographic)
 * [Tests](#tests)
 
 [![Image from covidgraph.org](https://covidgraph.org/img/content-img/Schema_v1.1_no_logo.png)](https://covidgraph.org/ 'Image from covidgraph.org')
