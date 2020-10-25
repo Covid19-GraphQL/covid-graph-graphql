@@ -16,6 +16,7 @@ This project serves to develop and maintain a [Neo4j-GraphQL](https://grandstack
 [![Image from covidgraph.org](https://covidgraph.org/img/content-img/Schema_v1.1_no_logo.png)](https://covidgraph.org/ 'Image from covidgraph.org')
 
 ## Demo
+### GraphQL Playground
 The API is currently hosted by Vercel at: https://covid-graph-graphql.now.sh/. For example queries, please see the below [integration tests](#tests).
 
 Try this query 🚀
@@ -32,6 +33,11 @@ query {
   }
 }
 ```
+[![GraphQL Playground](./img/graphql-playground-main.png)](https://covid-graph-graphql.now.sh/ 'GraphQL Playground')
+
+### GraphQL Voyager
+[GraphQL Voyager](https://www.npmjs.com/package/graphql-voyager) is available at: https://covid-graph-graphql.now.sh/voyager
+[![GraphQL Voyager](./img/graphql-voyager-main.png)](https://covid-graph-graphql.now.sh/voyager 'GraphQL Voyager')
 
 ## Getting Started
 Install root dependencies: 
