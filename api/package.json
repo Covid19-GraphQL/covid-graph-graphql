@@ -17,7 +17,7 @@
   "author": "Michael Graham",
   "license": "Apache-2.0",
   "dependencies": {
-    "apollo-server": "^2.14.2",
+    "apollo-server": "^2.25.3",
     "apollo-server-lambda": "^2.14.2",
     "csv-parse": "^4.10.1",
     "dotenv": "^7.0.0",
