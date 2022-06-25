@@ -43,7 +43,7 @@
     "babel-plugin-module-resolver": "^4.0.0",
     "cross-env": "^7.0.2",
     "graphql-tag": "^2.11.0",
-    "node-fetch": "^2.6.1",
+    "node-fetch": "^2.6.7",
     "nodemon": "^2.0.6",
     "nyc": "^15.1.0",
     "shx": "^0.3.2"
